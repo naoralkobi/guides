@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guides — a personal collection</title>
+  <meta name="description" content="A personal collection of practical guides, published as a static site." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='9' fill='%230f7268'/></svg>" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><span class="dot"></span> Guides</a>
+      <a class="nav-link" href="https://github.com" rel="noopener">Source</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="wrap hero">
+      <p class="eyebrow">A personal collection</p>
+      <h1>Guides worth keeping.</h1>
+      <p class="lede">Hand-written, practical walkthroughs on the tools and systems I actually use — collected here so they're easy to find, share, and return to.</p>
+    </section>
+
+    <section class="wrap">
+      <div class="section-label">
+        <h2>All guides</h2>
+        <span class="rule"></span>
+      </div>
+
+      <div class="card-grid">
+        <!-- To add a guide: copy one card block below, point href at your new file in /guides, and update the text. -->
+        <a class="card" href="guides/second-brain-obsidian-claude.html">
+          <span class="tag">AI &middot; Productivity</span>
+          <h3>Building a "Second Brain" with Obsidian + Claude</h3>
+          <p>Turn plain-text notes into a memory that grows itself — ten steps from install to autopilot.</p>
+          <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
+        </a>
+
+        <div class="card placeholder">
+          <h3>More guides coming&hellip;</h3>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>&copy; <span id="year"></span> &middot; A personal collection of guides.</span>
+      <span>Built as a static site &middot; served via GitHub Pages.</span>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

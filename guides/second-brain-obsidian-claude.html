@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building a "Second Brain" with Obsidian + Claude — Guides</title>
+  <meta name="description" content="A ten-step guide to building a self-maintaining, plain-text second brain with Obsidian and Claude." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='9' fill='%230f7268'/></svg>" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><span class="dot"></span> Guides</a>
+      <a class="nav-link" href="../index.html">All guides</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="guide-head">
+      <a class="back" href="../index.html">&larr; Back to all guides</a>
+      <h1>Building a "Second Brain" with Obsidian + Claude</h1>
+      <p class="guide-meta">AI &middot; Productivity &middot; A ten-step setup</p>
+    </div>
+
+    <article>
+      <h2>The Big Idea</h2>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Tool</th><th>Role</th><th>Why it matters</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Obsidian</td>
+              <td>The storage — a free notes app keeping plain-text files on your own computer.</td>
+              <td>Notes link to each other &rarr; they form a visible graph of your ideas. The files are yours forever, with no cloud lock-in.</td>
+            </tr>
+            <tr>
+              <td>Claude</td>
+              <td>The brain — reads the whole vault.</td>
+              <td>Files new information where it belongs, links it to what's already there, and answers questions across everything you've saved.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">Key insight</span>
+        <p>It's just text files. You're not locked to any one AI. Point a different model at the vault next year and it still works — you own the brain, not the tool.</p>
+      </div>
+
+      <h2>The 10 Steps</h2>
+
+      <h3><span class="step-num">1</span>Install Claude Desktop</h3>
+      <p>Download from <a href="https://claude.com/download" rel="noopener">claude.com/download</a> &rarr; install &rarr; sign in. This needs a paid plan (Pro, $20/mo; the free tier won't work). Click the <strong>Code</strong> tab — that's Claude Code, the version that can read and write files on your machine.</p>
+
+      <h3><span class="step-num">2</span>Install Obsidian + create your vault</h3>
+      <p>Download from <a href="https://obsidian.md" rel="noopener">obsidian.md</a> (free) &rarr; <strong>Create new vault</strong> &rarr; name it <code>brain</code>. That folder is your second brain.</p>
+      <p>Try the core mechanic: type <code>[[goals]]</code> — the bracketed word becomes a link. Notes pointing at notes. Claude does this linking automatically later.</p>
+
+      <h3><span class="step-num">3</span>Open the connection (Obsidian plugin)</h3>
+      <p>Settings &rarr; Community plugins &rarr; turn on &rarr; <strong>Browse</strong> &rarr; search <strong>Local REST API</strong> &rarr; Install &rarr; Enable. Open its settings and copy the <strong>API Key</strong>.</p>
+      <p>Keep Obsidian running — the connection only works while it's open.</p>
+
+      <h3><span class="step-num">4</span>Connect Claude to the vault</h3>
+      <p>In the Claude Code tab, paste the following (swap in your key):</p>
+      <div class="code-block" data-lang="bash">
+        <div class="code-head">
+          <span class="code-label">bash</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>claude mcp add-json obsidian-vault '{ "type": "stdio", "command": "uvx", "args": ["mcp-obsidian"], "env": { "OBSIDIAN_API_KEY": "PASTE-YOUR-KEY-HERE", "OBSIDIAN_HOST": "127.0.0.1", "OBSIDIAN_PORT": "27124" } }'</code></pre>
+      </div>
+      <div class="callout warn">
+        <span class="ico">&#9888;&#65039;</span>
+        <span class="label">Watch out</span>
+        <p>Don't include the word "Bearer" — paste only the key string.</p>
+      </div>
+      <p>Test it: <em>"list every file in my Obsidian vault."</em> If Claude reads your notes back, it works.</p>
+
+      <h3><span class="step-num">5</span>Load yourself into the brain</h3>
+      <p class="usecase"><b>Use case:</b> stop re-explaining who you are every session.</p>
+      <p>Make Claude interview you. Paste:</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head">
+          <span class="code-label">prompt</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>You are setting up my second brain. Interview me ONE question at a
+time to build my profile. Ask about: who I am and what I do, my goals
+for this year, how I want you to talk to me, my strengths and
+weaknesses, and my current projects. Wait for each answer before the
+next question. When finished, write everything into a file called
+CLAUDE.md at the vault root, structured with headers, so you load it
+automatically every session.</code></pre>
+      </div>
+      <p>Saved to <code>CLAUDE.md</code>, loaded every session.</p>
+
+      <h3><span class="step-num">6</span>Create a project with structure</h3>
+      <p class="usecase"><b>Use case:</b> keep Claude focused on one job.</p>
+      <p>Paste:</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head">
+          <span class="code-label">prompt</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>Create a project folder in my vault called youtube-channel. Inside it,
+create four folders: Inputs, Process, Outputs, Feedback. Then write a
+CLAUDE.md inside that project folder describing what this project is,
+its one goal, and your specific role in helping me hit it.</code></pre>
+      </div>
+      <p>The pipeline: ideas &rarr; <strong>Inputs</strong> &middot; Claude works in <strong>Process</strong> &middot; finished work &rarr; <strong>Outputs</strong> &middot; results/metrics &rarr; <strong>Feedback</strong>. Repeat per area.</p>
+
+      <h3><span class="step-num">7</span>Open a single project to work in it</h3>
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">Insight</span>
+        <p>The big vault plans. A single project ships.</p>
+      </div>
+      <p>In Obsidian: vault name (bottom-left) &rarr; <strong>Manage vaults</strong> &rarr; <strong>Open folder as a vault</strong> &rarr; pick the project folder &rarr; <strong>Trust</strong>. Claude reads only that project's <code>CLAUDE.md</code>.</p>
+
+      <h3><span class="step-num">8</span>Build a skill (never repeat yourself)</h3>
+      <p class="usecase"><b>Use case:</b> anything you do more than once &rarr; a saved workflow.</p>
+      <p>Paste:</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head">
+          <span class="code-label">prompt</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>I want to turn this into a reusable skill. Here is how I do [the task],
+with an example: [paste your example or steps]. Save this as a markdown
+skill file inside this project's skills folder, with a clear name and a
+description of when to trigger it.</code></pre>
+      </div>
+      <p>Next time, say <em>"run the [name] skill."</em> Build one per repeated task.</p>
+
+      <h3><span class="step-num">9</span>Wire in live data</h3>
+      <p class="usecase"><b>Use case:</b> connect what changes in real time.</p>
+      <div class="code-block" data-lang="bash">
+        <div class="code-head">
+          <span class="code-label">bash</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>claude mcp add google-workspace uvx workspace-mcp --tools calendar</code></pre>
+      </div>
+      <p>Then:</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head">
+          <span class="code-label">prompt</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>Read my calendar for today, log what I committed to in each meeting
+into my tasks project, and flag anything without a clear next step.</code></pre>
+      </div>
+      <p>Add Gmail, Slack, and Notion the same way. Always grant read-only where you can.</p>
+
+      <h3><span class="step-num">10</span>Put it on autopilot</h3>
+      <p class="usecase"><b>Use case:</b> a brain that maintains itself overnight.</p>
+      <p>Claude Desktop &rarr; <strong>Schedule</strong> tab &rarr; <strong>+ New task</strong>:</p>
+      <div class="table-scroll">
+        <table>
+          <tbody>
+            <tr><td>Frequency</td><td>Daily, 7:00am</td></tr>
+            <tr><td>Folder</td><td>your vault</td></tr>
+            <tr><td>Prompt</td><td>Check my vault. File anything new sitting in Inputs folders into the right place and link it. Flag notes that have gone stale. Write me a 3-line summary of what changed overnight.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>The One Rule You Never Break</h2>
+      <div class="callout warn">
+        <span class="ico">&#9888;&#65039;</span>
+        <span class="label">Keys, not prompts</span>
+        <p>Telling an agent "don't delete this" is a suggestion, not a safety setting. If it technically <em>can</em> delete a file or send an email, assume one day it will.</p>
+        <p>Control access at the permission level — read-only, scoped keys — not with words.</p>
+      </div>
+
+      <h2>Bonus: Skip the setup</h2>
+      <p>Ready-made repos on GitHub if you'd rather start from a template:</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Repo</th><th>What it gives you</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>claude-obsidian <span style="color:var(--ink-faint);font-weight:400">(AgriciDaniel)</span></td>
+              <td>A self-organizing brain on the Karpathy wiki pattern; scaffolds the vault + connection; role presets (executive, builder, creator, researcher).</td>
+            </tr>
+            <tr>
+              <td>obsidian-second-brain <span style="color:var(--ink-faint);font-weight:400">(eugeniughelbur)</span></td>
+              <td>43 ready commands (<code>/obsidian-save</code>, <code>/obsidian-daily</code>, <code>/obsidian-find</code>); works across Claude, Codex, and Gemini.</td>
+            </tr>
+            <tr>
+              <td>second-brain-starter <span style="color:var(--ink-faint);font-weight:400">(coleam00)</span></td>
+              <td>Interviews you, plans a proactive assistant, and builds it from text files + Python + Obsidian.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>All are just text files and scripts — clone, then reshape into your private version.</p>
+
+      <h2>Before vs. After</h2>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Before</th><th>After</th></tr>
+          </thead>
+          <tbody>
+            <tr><td style="white-space:normal">Claude forgets you when you close the tab</td><td>Persistent memory of your life and work</td></tr>
+            <tr><td style="white-space:normal">Every session starts cold</td><td>Picks up exactly where it left off</td></tr>
+            <tr><td style="white-space:normal">You hold all the context (and lose it)</td><td>A graph that grows itself while you sleep</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="closer">Same subscription. Completely different machine. You're not building a Claude setup — you're building your own memory, and it gets smarter every day you feed it.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="nav-link" href="../index.html">&larr; All guides</a>
+      <span>A personal collection of guides.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var code = btn.closest('.code-block').querySelector('code');
+        var text = code.innerText;
+        navigator.clipboard.writeText(text).then(function () {
+          var prev = btn.textContent;
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(function () {
+            btn.textContent = prev;
+            btn.classList.remove('copied');
+          }, 1600);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
