@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Actually Use Claude — 18 Steps — Guides</title>
+  <meta name="description" content="Eighteen practical steps and copy-paste prompts to set Claude up so it remembers you, understands you, and works like a thinking partner instead of a search engine." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='9' fill='%230f7268'/></svg>" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><span class="dot"></span> Guides</a>
+      <a class="nav-link" href="../index.html">All guides</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="guide-head">
+      <a class="back" href="../index.html">&larr; Back to all guides</a>
+      <h1>How to Actually Use Claude: 18 Steps</h1>
+      <p class="guide-meta">AI &middot; Productivity &middot; Setup + copy-paste prompts</p>
+    </div>
+
+    <article>
+      <h2>The Big Idea</h2>
+      <p class="lede">Most people who use Claude every day are still using about 10% of what it can do — not because it's complicated, but because nobody showed them the other 90%. These 18 steps set Claude up to remember you, understand you, and work the way you actually think.</p>
+
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">The actual point</span>
+        <p>Claude isn't smarter than you and doesn't have better ideas. What it has is infinite patience, broad knowledge, and the ability to attack a problem from angles you haven't considered. The people who get the most from it aren't the ones with the best questions — they're the ones who set it up to understand them and use it as a <em>partner</em>, not a dispenser. Set it up once; change how you work permanently.</p>
+      </div>
+
+      <h2>Start Here: Set Up Memory</h2>
+
+      <h3><span class="step-num">1</span>Create a Project, not a chat</h3>
+      <p>Every new chat starts with zero memory — it doesn't know your name, work, goals, or how you communicate, so you waste the first few messages re-explaining yourself. A <strong>Project</strong> is a persistent workspace where Claude keeps context across every conversation inside it. In Claude, click <strong>Projects</strong> in the sidebar, create one, and name it something like "Work" or "Personal." Everything that follows goes inside it.</p>
+
+      <h3><span class="step-num">2</span>Tell Claude who you are</h3>
+      <p>Paste this into your Project and fill in every field honestly — the more specific you are, the better every response becomes. Save it in the Project's knowledge base so Claude reads it at the start of every conversation.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head">
+          <span class="code-label">prompt</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>My name is [your name].
+
+I work as [your role or profession]. My main responsibilities are
+[2-3 things you actually do day to day].
+
+Right now my biggest goals are [1-3 specific goals you're working toward].
+
+I use Claude mostly for [writing, research, analysis, learning, coding, etc].
+
+My background and knowledge level: [what you know well, what you're
+learning, what you're new to].
+
+How I like to receive information: [e.g. direct and concise / detailed
+with examples / step by step / no bullet points / short paragraphs].
+
+Things I don't want: [e.g. don't add disclaimers, don't use corporate
+language, don't repeat what I just said back to me, don't start with
+"Great question"].
+
+Topics and areas I care about: [your interests, industry, niche].</code></pre>
+      </div>
+
+      <h3><span class="step-num">3</span>Turn that into Custom Instructions</h3>
+      <p>Background tells Claude <em>who</em> you are; Custom Instructions tell it <em>how to behave</em> by default. After filling in the template above, run this and paste the output into your Project Instructions.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head">
+          <span class="code-label">prompt</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>Based on everything I've told you about myself, write me a set of custom
+instructions for this Claude Project.
+
+The instructions should:
+- Describe who I am and what I do
+- Set my default communication style and format
+- Tell Claude what to never do when working with me
+- Define the tone I want in every response
+- Include any default behaviors I would want in every session
+
+Write them in second person, as if Claude is reading rules about how to
+help me. Be specific. No generic advice. Under 400 words.</code></pre>
+      </div>
+
+      <h2>Claude Is Not What You Think</h2>
+
+      <h3><span class="step-num">4</span>Claude is not a search engine</h3>
+      <p>Treating Claude like Google — type a question, wait for an answer — is the lowest-value way to use it and cuts its usefulness by ~80%. It's a thinking partner that reasons, synthesizes, and argues. Stop asking <em>what something is</em>; start asking it to <em>think through something with you</em>.</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Instead of</th><th>Try</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>"What is prompt caching?"</td><td>"I'm building a workflow that calls Claude 20 times per session. Walk me through how prompt caching works and whether it would actually reduce my costs given that context."</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3><span class="step-num">5</span>Ask Claude to ask you questions first</h3>
+      <p>Before any complex task, have Claude gather information from you — the output is dramatically better when built on the right foundation instead of assumptions you then have to correct.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head">
+          <span class="code-label">prompt</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>Before you start, ask me the 5 most important questions that would help
+you do this well.
+
+After I answer, then begin.</code></pre>
+      </div>
+
+      <h2>What Even Regular Users Don't Know</h2>
+
+      <h3><span class="step-num">6</span>Style cloning</h3>
+      <p>Without examples, Claude writes in its own voice — correct and completely wrong in tone. Give it 3–5 samples of your writing and ask it to <em>analyze your patterns</em>, not just describe your style.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head">
+          <span class="code-label">prompt</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>Here are 3 examples of my writing:
+
+[paste sample 1]
+[paste sample 2]
+[paste sample 3]
+
+Analyze my writing style in detail. Look at: sentence length, rhythm,
+vocabulary choices, how I open and close paragraphs, what I avoid, how
+formal or informal I am, and any patterns that make my writing distinct.
+
+After this, when I ask you to write anything for me, match this style
+exactly. Do not default to your own patterns.</code></pre>
+      </div>
+
+      <h3><span class="step-num">7</span>Claude as your sparring partner</h3>
+      <p>Asking Claude to "help with" an idea gets you agreement and elaboration. To stress-test it, tell Claude to <strong>attack</strong> it — not critique it. The distinction matters.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head">
+          <span class="code-label">prompt</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>Here is my plan: [describe your plan]
+
+Your job is to destroy it. Find every assumption I'm making that could
+be wrong. Find every way this could fail. Argue the opposite position as
+hard as you can. Do not be polite. Do not add qualifications. Just attack.
+
+After that, steelman my position. Build the strongest possible case for
+why I'm right.
+
+Then tell me what you actually think.</code></pre>
+      </div>
+
+      <h3><span class="step-num">8</span>Extended Thinking</h3>
+      <p>Extended Thinking makes Claude reason step by step before answering. Skip it for simple tasks; turn it on for complex decisions and analysis. Click the brain icon before sending, or add:</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head">
+          <span class="code-label">prompt</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>Think through this carefully before responding.
+
+Work through the problem step by step, show your reasoning, identify
+where you're uncertain, then give me your conclusion.</code></pre>
+      </div>
+
+      <h3><span class="step-num">9</span>Claude writes prompts for Claude</h3>
+      <p>If you're not sure how to prompt for a task, ask Claude to write the prompt — it knows what instructions produce better results.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head">
+          <span class="code-label">prompt</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>I need Claude to help me [describe your actual task].
+
+Write me the best possible prompt for this task.
+
+Include role, context, format instructions, and any constraints that
+would improve the output.
+
+Then use that prompt immediately.</code></pre>
+      </div>
+
+      <h2>Spend Fewer Tokens, Get More</h2>
+
+      <h3><span class="step-num">10</span>Specify the output length</h3>
+      <p>Claude defaults to writing more than you need. Telling it the length up front cuts token usage on most tasks by 40–60% with no loss of value.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head">
+          <span class="code-label">prompt</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>Answer in 3 sentences maximum.
+Give me 5 bullet points. No explanations. Just the points.
+Write this in under 150 words.</code></pre>
+      </div>
+
+      <h3><span class="step-num">11</span>Remove the preamble</h3>
+      <p>"Great question. Let me break this down…", restatements, disclaimers, closing summaries — you didn't ask for any of it, and it costs tokens and time. Add this to your Custom Instructions:</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head">
+          <span class="code-label">prompt</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>Never start responses with preamble, affirmations, or restatements of
+my question.
+
+Go directly to the answer.
+
+Do not add a summary at the end unless I specifically ask for one.
+
+No disclaimers unless the topic genuinely requires one.</code></pre>
+      </div>
+
+      <h3><span class="step-num">12</span>Don't re-explain yourself every conversation</h3>
+      <p>Pasting the same background into every new chat wastes tokens every time. That's what Projects and Custom Instructions are for: put your context in once, let Claude read it automatically, never paste it again. If you're not using Projects yet, start there before anything else.</p>
+
+      <h3><span class="step-num">13</span>Start a new chat for a new topic</h3>
+      <p>Claude carries everything said earlier in a conversation. Switching topics mid-chat means more tokens per response, slower processing, and context bleed. For something unrelated, start a fresh chat inside your Project — you keep the Project memory and drop the irrelevant baggage.</p>
+
+      <div class="callout warn">
+        <span class="ico">&#9888;&#65039;</span>
+        <span class="label">Token discipline, in one line</span>
+        <p>Set length, kill preamble, store context once, and start fresh chats per topic. These four habits compound — and they save the most as your Claude usage scales.</p>
+      </div>
+
+      <h2>Ready-to-Use Prompts</h2>
+
+      <h3><span class="step-num">14</span>Understand anything via analogies (Feynman method)</h3>
+      <p class="usecase"><b>Use case:</b> real comprehension, not a definition you can't actually use.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head">
+          <span class="code-label">prompt</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>Explain [topic] to me using only analogies and everyday examples. No
+jargon. Assume I have no background in this field.
+
+After each analogy, check whether I've actually understood it by asking
+me one question. Based on my answer, go deeper or adjust the explanation.
+
+Keep going until I can explain it back to you in my own words without
+using any technical terms.</code></pre>
+      </div>
+
+      <h3><span class="step-num">15</span>Travel plan built around how you actually travel</h3>
+      <p class="usecase"><b>Use case:</b> an itinerary for your style, not a generic must-see list.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head">
+          <span class="code-label">prompt</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>I'm planning a trip to [destination]. I'll be there for [number of days].
+My budget is approximately [amount] per day including accommodation.
+
+Here's how I actually travel: [slow mornings or packed days, touristy
+places or local spots, museums or food, active or relaxed, solo or with
+someone, etc].
+
+Things I want to avoid: [crowds, tourist traps, expensive restaurants,
+long transport times, etc].
+
+Build me a day-by-day itinerary that fits this. For each day, include
+where to stay, what to do, where to eat, and any logistics I need to
+know. Flag anything that requires booking in advance.</code></pre>
+      </div>
+
+      <h3><span class="step-num">16</span>Monthly expense analysis with real conclusions</h3>
+      <p class="usecase"><b>Use case:</b> turn a bank statement into a clear picture and one high-impact change. Works best with real data.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head">
+          <span class="code-label">prompt</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>I'm going to paste my expenses from the last month. Analyze them and
+tell me:
+
+1. What categories am I spending the most on
+2. Where my spending looks unusual compared to my stated goals
+3. What I could cut without meaningfully affecting my life
+4. What I'm probably underspending on that matters
+5. One specific change that would have the biggest financial impact
+
+Here are my expenses: [paste your bank statement or expense list]
+
+My financial goals right now: [save more, pay off debt, invest, etc]</code></pre>
+      </div>
+
+      <h3><span class="step-num">17</span>Claude as your personal thinking partner</h3>
+      <p class="usecase"><b>Use case:</b> structured self-reflection with an outside perspective. Not therapy.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head">
+          <span class="code-label">prompt</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>I want to talk through something I'm dealing with. Your job is not to
+give me advice right away.
+
+First, ask me questions to understand the situation fully. What's
+actually happening, how I feel about it, what I've already tried, and
+what outcome I'm hoping for.
+
+After you understand the full picture, reflect back what you're hearing
+— not just the facts but what seems to be underneath them.
+
+Then, and only then, offer your perspective. Be honest, not reassuring.
+Tell me what you actually think, including anything I might not want to
+hear.
+
+Here's what's on my mind: [describe what you want to think through]</code></pre>
+      </div>
+
+      <h3><span class="step-num">18</span>Stress-test a business idea before you commit</h3>
+      <p class="usecase"><b>Use case:</b> a ruthless first filter that finds real problems before they cost you time and money.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head">
+          <span class="code-label">prompt</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>I have a business idea I want to stress-test before I invest serious
+time in it.
+
+Here's the idea: [what it is, who it's for, how it makes money, why you
+think it works]
+
+Your job is to find everything wrong with it. Specifically:
+
+1. What assumptions am I making that could be wrong
+2. Who already does this and why I might lose to them
+3. Why the target customer might not actually pay for this
+4. What would have to be true for this to work, and how likely is that
+5. The single biggest problem with this idea
+
+Be specific. Generic risks like "the market might not be ready" are not
+useful. Give me the real version of each problem.
+
+After that, tell me what the idea would need to look like to actually work.</code></pre>
+      </div>
+
+      <p class="closer">Most people will read this and keep opening Claude the same way they always have. Set it up once — change how you work permanently.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="nav-link" href="../index.html">&larr; All guides</a>
+      <span>A personal collection of guides.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var code = btn.closest('.code-block').querySelector('code');
+        var text = code.innerText;
+        navigator.clipboard.writeText(text).then(function () {
+          var prev = btn.textContent;
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(function () {
+            btn.textContent = prev;
+            btn.classList.remove('copied');
+          }, 1600);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
