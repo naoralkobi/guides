@@ -53,8 +53,25 @@ If neither is clear, ask which one and for the content.
    ```
    End git commit messages with the project's co-author trailer if configured.
 
-7. **Report** the new file path, the card added, and the pushed commit. If GitHub
-   Pages is enabled, give the live URL.
+7. **Wait for GitHub Pages to deploy, then verify the live site.** Pushing does NOT
+   make the guide live immediately — GitHub Pages rebuilds asynchronously and can lag
+   a minute or two behind the push. Do not tell the user the guide is live until you've
+   confirmed the deploy finished and the page actually serves. Steps:
+   - Poll the latest Pages build until it reports the new commit as `built`:
+     ```bash
+     gh api repos/<owner>/<repo>/pages/builds/latest --jq '{status, commit}'
+     ```
+     Confirm `status` is `built` AND `commit` matches the commit you just pushed.
+     If still `building`, wait ~15–20s and poll again.
+   - Then fetch the live URLs to confirm a real 200 and that the card is present:
+     ```bash
+     curl -s -o /dev/null -w "%{http_code}\n" "<live-guide-url>"   # expect 200
+     curl -s "<live-index-url>" | grep -q "<slug>.html" && echo "card live"
+     ```
+   - Only after both checks pass, report the guide as live.
+
+8. **Report** the new file path, the card added, the pushed commit, and the verified
+   live URL.
 
 ## Conventions
 - Match the existing palette and typography via the shared `css/style.css` — never
