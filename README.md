@@ -2,6 +2,8 @@
 
 A personal collection of practical guides, published as a static website.
 
+**🌐 Live site: https://naoralkobi.github.io/guides/**
+
 This repo holds multiple standalone guides. Each guide is a single self-contained
 HTML page; the landing page (`index.html`) lists them all as cards. No build step,
 no frameworks — just HTML and CSS (plus a tiny bit of vanilla JS for copy-to-clipboard
