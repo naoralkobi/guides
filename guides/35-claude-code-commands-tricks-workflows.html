@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>35 Claude Code Commands, Tricks &amp; Workflows — Guides</title>
+  <meta name="description" content="35 daily-tested Claude Code techniques — essential commands, productivity moves, architecture prompts, workflow automation, and debug/recovery — that most users never discover." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='9' fill='%230f7268'/></svg>" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><span class="dot"></span> Guides</a>
+      <a class="nav-link" href="../index.html">All guides</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="guide-head">
+      <a class="back" href="../index.html">&larr; Back to all guides</a>
+      <h1>35 Claude Code Commands, Tricks &amp; Workflows Most Users Don't Know</h1>
+      <p class="guide-meta">AI &middot; Claude Code &middot; 35 techniques, five categories</p>
+    </div>
+
+    <article>
+      <h2>The Big Idea</h2>
+      <p>Most developers install Claude Code, use it for basic code generation, and assume they've seen what it can do — they've seen maybe 20%. The other 80% is what turns it from a useful assistant into the most productive tool in your terminal. Compiled by <a href="https://twitter.com/eng_khairallah1" rel="noopener">Khairallah AL-Awady</a> from months of daily use. Tested daily. Zero theory.</p>
+
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">Key insight</span>
+        <p>The single highest-leverage habit on this list: <strong>plan before you build</strong>. Use plan mode and incremental, tested steps — it prevents more bugs than any other technique here.</p>
+      </div>
+
+      <h2>Essential Commands (01&ndash;08)</h2>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>#</th><th>Command</th><th>What it does</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>01</td><td><strong>Plan Mode</strong> <code>Shift + Tab</code></td><td>Claude analyzes your codebase and writes an architecture plan <em>without</em> writing code. Review it, approve it, then switch back to implementation.</td></tr>
+            <tr><td>02</td><td><code>/compact</code></td><td>After 30&ndash;45 min, context bloats. Compress the whole history into a focused summary of key decisions and current state so Claude stays sharp.</td></tr>
+            <tr><td>03</td><td><code>/clear</code></td><td>Starting a new task? Wipe the slate. Carrying a DB refactor's context into a frontend redesign produces conflicting code. One conversation per feature.</td></tr>
+            <tr><td>04</td><td><code>/init</code></td><td>Scans your codebase and generates a <code>CLAUDE.md</code> — a persistent context doc (structure, tech stack, patterns, key decisions) read automatically every session.</td></tr>
+            <tr><td>05</td><td><code>/cost</code></td><td>Shows token usage for the session. Check it hourly during long sessions and budget against it — surprises are never fun.</td></tr>
+            <tr><td>06</td><td><code>/memory</code></td><td>Add persistent rules that apply in every session: "Always use TypeScript strict mode," "Always run tests after modifying <code>/src/core</code>."</td></tr>
+            <tr><td>07</td><td><code>!</code> prefix</td><td>Prefix a message with <code>!</code> to run it as a terminal command instead of sending it to Claude — quick tests, git status, navigation, without leaving the interface.</td></tr>
+            <tr><td>08</td><td>Multi-Model Switching</td><td>Opus for planning &amp; architecture (thinks deeper, costs more); Sonnet for implementation (faster, cheaper). Plan with the thinker, build with the builder.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Productivity Techniques (09&ndash;18)</h2>
+
+      <h3><span class="step-num">9</span>The Reference File Technique</h3>
+      <p>Don't describe the style you want — point at code that already has it.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>Look at how authentication is implemented in src/auth/login.ts.
+Implement password reset following the exact same patterns.</code></pre>
+      </div>
+
+      <h3><span class="step-num">10</span>The Screenshot Debug</h3>
+      <p>UI looks wrong? Don't write a paragraph — screenshot it, paste with <code>Ctrl+V</code>, and point.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>The button is misaligned with the input field. The spacing between
+cards is inconsistent. Fix both.</code></pre>
+      </div>
+
+      <h3><span class="step-num">11</span>The Test-First Workflow</h3>
+      <p>Tests define behavior before code exists — the implementation is correct because it must pass them.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>Write tests for a function that calculates discounted prices. Cover:
+normal discounts, zero discount, 100% discount, negative prices, and
+string inputs. Then implement the function to pass all tests.</code></pre>
+      </div>
+
+      <h3><span class="step-num">12</span>The Incremental Build</h3>
+      <p>Never say "build the entire feature." Break it into steps, testing between each: schema &rarr; test, API endpoint &rarr; test, validation &rarr; test, frontend form &rarr; test. Five small tested steps beat one massive prompt dramatically.</p>
+
+      <h3><span class="step-num">13</span>The Codebase Question</h3>
+      <p>Understanding before building prevents architectural mistakes.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>Read src/services/ and explain how data flows from the API routes to
+the database. What patterns are used? What should I know before
+modifying anything here?</code></pre>
+      </div>
+
+      <h3><span class="step-num">14</span>The Diff Review</h3>
+      <p>Catches the files Claude "helpfully" changed without being asked.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>Show me a diff of every file you modified. Explain each change in one
+sentence.</code></pre>
+      </div>
+
+      <h3><span class="step-num">15</span>The Error Paste</h3>
+      <p>Copy the <em>complete</em> error and stack trace — not a summary. The step-by-step constraint stops Claude jumping to a wrong fix.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>I got this error: [paste full error]. Diagnose the root cause step by
+step before suggesting a fix.</code></pre>
+      </div>
+
+      <h3><span class="step-num">16</span>The Undo Checkpoint</h3>
+      <p>Before every major change, commit. Reverting takes seconds instead of thirty minutes of debugging what used to work.</p>
+      <div class="code-block" data-lang="bash">
+        <div class="code-head"><span class="code-label">bash</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>git add . && git commit -m "checkpoint before [change]"</code></pre>
+      </div>
+
+      <h3><span class="step-num">17</span>The Parallel Session</h3>
+      <p>For large features, open two terminals: one Claude Code session on the backend, one on the frontend. Each gets clean, focused context for its domain. Connect the pieces at the end.</p>
+
+      <h3><span class="step-num">18</span>The Documentation Pass</h3>
+      <p>Docs generated right after building are more accurate than docs written days later from memory.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>Read every file you created or modified for this feature. Generate
+comprehensive documentation: what each function does, how they connect,
+expected inputs and outputs, and any non-obvious design decisions.</code></pre>
+      </div>
+
+      <h2>Architecture Techniques (19&ndash;26)</h2>
+
+      <h3><span class="step-num">19</span>The Architecture Audit</h3>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>Analyze my project requirements: [list them]. Propose 2 different
+architectural approaches. For each: component diagram, pros, cons,
+estimated complexity, and what could go wrong. Recommend one with
+clear reasoning.</code></pre>
+      </div>
+
+      <h3><span class="step-num">20</span>The Dependency Check</h3>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>I want to add [package] to handle [use case]. Check: is this actively
+maintained? Known security issues? Bundle size impact? Are there
+lighter alternatives that cover my specific use case?</code></pre>
+      </div>
+
+      <h3><span class="step-num">21</span>The Pattern Enforcer</h3>
+      <p>Add to your <code>CLAUDE.md</code> so Claude matches your patterns automatically in every new file:</p>
+      <div class="code-block" data-lang="markdown">
+        <div class="code-head"><span class="code-label">CLAUDE.md</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>When creating new files, follow these patterns:
+- API routes follow the structure in src/api/example-route.ts
+- Database queries use the repository pattern in src/repositories/example-repo.ts
+- React components follow src/components/ExampleComponent.tsx</code></pre>
+      </div>
+
+      <h3><span class="step-num">22</span>The Migration Builder</h3>
+      <p>Schema changes that touch multiple layers are where Claude shines — it tracks all the ripple effects.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>Change the user table schema: add a 'role' column (enum: admin, editor,
+viewer; default viewer) and rename 'name' to 'display_name'. Generate
+the migration, update the repository layer, update all API routes that
+reference the old schema, and update the TypeScript types. Show me every
+file that needs to change before making any modifications.</code></pre>
+      </div>
+
+      <h3><span class="step-num">23</span>The API Design Review</h3>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>Review my API design: [paste route definitions]. Check for:
+inconsistent naming, missing error responses, endpoints that should be
+paginated, missing auth on protected routes, and REST convention
+violations. Suggest specific improvements.</code></pre>
+      </div>
+
+      <h3><span class="step-num">24</span>The Security Scan</h3>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>Scan this codebase for security vulnerabilities: SQL injection, XSS,
+exposed secrets, missing input validation, insecure direct object
+references, and missing rate limiting. For each finding: severity,
+exact location, why it's dangerous, and the fix.</code></pre>
+      </div>
+
+      <h3><span class="step-num">25</span>The Performance Profiler</h3>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>Analyze this codebase for performance issues: N+1 queries, missing
+indexes based on query patterns, unnecessary React re-renders, large
+bundle imports that could be lazy loaded, and endpoints that should be
+cached. Prioritize by estimated impact.</code></pre>
+      </div>
+
+      <h3><span class="step-num">26</span>The Refactoring Planner</h3>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>Read src/services/user-service.ts. It's grown to 800 lines and handles
+too many responsibilities. Propose a refactoring plan that splits it
+into focused modules. Show the proposed file structure, what moves
+where, and verify no external imports break. Do NOT start refactoring
+yet — just show me the plan.</code></pre>
+      </div>
+
+      <h2>Workflow Automation (27&ndash;31)</h2>
+
+      <h3><span class="step-num">27</span>The Git Hook Writer</h3>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>Create a pre-commit hook that: runs the linter on staged files, runs
+type checking, checks for console.log in production code, and blocks
+commits that fail any check. Install it in .husky/pre-commit.</code></pre>
+      </div>
+
+      <h3><span class="step-num">28</span>The CI Pipeline Builder</h3>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>Create a GitHub Actions workflow that: runs on every PR, installs
+dependencies, runs the full test suite, runs the linter, builds the
+project, and posts a comment on the PR with the results. Use caching
+for node_modules.</code></pre>
+      </div>
+
+      <h3><span class="step-num">29</span>The Environment Setup Script</h3>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>Create a setup.sh script a new developer runs once to set up the whole
+dev environment: install dependencies, create .env from .env.example,
+set up the local database, run migrations, seed test data, and verify
+everything works by running the test suite.</code></pre>
+      </div>
+
+      <h3><span class="step-num">30</span>The Release Notes Generator</h3>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>Read the git log since the last tag. Generate release notes organized
+by: new features, bug fixes, performance improvements, and breaking
+changes. Write each entry in user-friendly language, not developer
+jargon. Format as a markdown changelog entry.</code></pre>
+      </div>
+
+      <h3><span class="step-num">31</span>The Database Seed Builder</h3>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>Create a comprehensive seed file for the dev database: 5 users (1 admin,
+2 editors, 2 viewers), 20 sample projects with realistic data,
+relationships between entities, and edge cases (archived project,
+deleted user, project with no members). Make the data realistic, not
+'test123'.</code></pre>
+      </div>
+
+      <h2>Debug &amp; Recovery (32&ndash;35)</h2>
+
+      <h3><span class="step-num">32</span>The Reproduction Prompt</h3>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>This bug was reported by a user: [paste bug report]. Create a minimal
+reproduction: exact steps, expected behavior, actual behavior. Then
+write a failing test that captures this bug. Then fix the code to make
+the test pass.</code></pre>
+      </div>
+
+      <h3><span class="step-num">33</span>The Blame Investigator</h3>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>This function started failing yesterday. Read the git log for this file
+over the past week. Identify which commit likely introduced the issue
+and explain what changed. Then suggest the fix.</code></pre>
+      </div>
+
+      <h3><span class="step-num">34</span>The Dependency Conflict Resolver</h3>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>I'm getting this dependency conflict: [paste error]. Analyze it.
+Identify which packages require conflicting versions of the shared
+dependency. Suggest the resolution that requires the fewest changes and
+explain the tradeoffs.</code></pre>
+      </div>
+
+      <h3><span class="step-num">35</span>The Recovery Mode</h3>
+      <p>When you've been going back and forth too long on a broken implementation:</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head"><span class="code-label">prompt</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>Stop. Read the original working version of this file from git:
+[paste git show output]. Now look at what we've been trying to achieve:
+[restate the goal simply]. Start fresh with a different approach. The
+previous approach clearly isn't working.</code></pre>
+      </div>
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">Insight</span>
+        <p>Sometimes starting over from a clean state is faster than fixing accumulated mistakes. Know when to use this.</p>
+      </div>
+
+      <h2>The Setup That Ties It All Together</h2>
+      <p>When you start a new project, run this sequence — a five-minute setup that transforms every subsequent hour of development:</p>
+      <div class="table-scroll">
+        <table>
+          <tbody>
+            <tr><td>1</td><td><code>/init</code> — generate the <code>CLAUDE.md</code> file</td></tr>
+            <tr><td>2</td><td>Add your coding standards and patterns to <code>CLAUDE.md</code></td></tr>
+            <tr><td>3</td><td><code>/memory</code> — add persistent rules you want in every session</td></tr>
+            <tr><td>4</td><td>Plan mode — design the architecture before writing any code</td></tr>
+            <tr><td>5</td><td>Build incrementally — one feature at a time, tested at each step</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="closer">35 techniques across session management, faster building, better design, consistent quality, and recovery when things break. Compiled from months of daily use by <a href="https://twitter.com/eng_khairallah1" rel="noopener">Khairallah AL-Awady (@eng_khairallah1)</a>.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="nav-link" href="../index.html">&larr; All guides</a>
+      <span>A personal collection of guides.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var code = btn.closest('.code-block').querySelector('code');
+        var text = code.innerText;
+        navigator.clipboard.writeText(text).then(function () {
+          var prev = btn.textContent;
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(function () {
+            btn.textContent = prev;
+            btn.classList.remove('copied');
+          }, 1600);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
