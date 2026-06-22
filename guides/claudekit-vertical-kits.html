@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClaudeKit: Turn Claude Code Into a Specialist Team — Guides</title>
+  <meta name="description" content="ClaudeKit is a marketplace of vertical kits — slash commands, skills, and subagents — that turn raw Claude Code into a pre-built specialist for engineering, video, marketing, SEO, ecom, or trading research." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='9' fill='%230f7268'/></svg>" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><span class="dot"></span> Guides</a>
+      <a class="nav-link" href="../index.html">All guides</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="guide-head">
+      <a class="back" href="../index.html">&larr; Back to all guides</a>
+      <h1>ClaudeKit: Stop Re-Teaching Claude Code Every Session</h1>
+      <p class="guide-meta">AI &middot; Tools &middot; Vertical kits for Claude Code</p>
+    </div>
+
+    <article>
+      <h2>The Big Idea</h2>
+      <p class="lede">Most people open Claude Code, paste a task, get it done, close the tab — and next session re-explain their stack, standards, and what "done" even means. That's one brilliant assistant with amnesia. Useful, but small.</p>
+      <p>Claude Code out of the box is raw — ridiculously capable, but raw. It knows how to code, write, research, and edit video. What it doesn't know is <em>you</em>: your conventions, your voice, your benchmarks, the checklist that keeps you from shipping something broken at 2am. So you spend the first ten minutes of every session re-teaching it. Again. And again.</p>
+
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">What ClaudeKit is</span>
+        <p>Not a prompt pack. Not a Notion doc of "10 killer prompts." It's a marketplace of <strong>vertical kits</strong> for Claude Code — each a complete specialist made of slash commands, skills, and subagents pre-built for one type of work and one type of person. Install a kit and Claude Code <em>becomes</em> that specialist instantly: already knowing the workflow, carrying the domain knowledge, wired to the tools the job needs. You're not prompting from scratch — you're hiring a department. (<a href="https://theclaudekit.com" rel="noopener">theclaudekit.com</a>)</p>
+      </div>
+
+      <h2>How It Works</h2>
+      <p>Installing a kit is one line inside Claude Code — that's the whole setup:</p>
+      <div class="code-block" data-lang="bash">
+        <div class="code-head">
+          <span class="code-label">bash</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>ck install [kitname]</code></pre>
+      </div>
+      <p>Any kit starts at <strong>$14.99/month</strong>. Browse every kit at <a href="https://theclaudekit.com" rel="noopener">theclaudekit.com</a> before you spend a cent. Every file is measured for <strong>context cost</strong> before you load it, so you always know what a kit is doing to your context window — that part is kind of the whole point.</p>
+
+      <h2>The Kits</h2>
+
+      <h3><span class="step-num">1</span>EngineerKit</h3>
+      <p>25 commands plus skills and read-only subagents, all built around one rule: <strong>nothing ships on a vibe — everything ends with evidence</strong>. For devs, solo founders, and agencies shipping real products on real deadlines. If you write code with Claude Code, this is the floor.</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Command</th><th>What it does</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>/eng-debug</code></td><td>Pulls the trace, reads the last 15 commits near the failure, reproduces the bug first, and refuses to touch code until it can name the cause in one sentence. Ships the smallest fix plus the regression test that would have caught it — red before, green after, full suite run.</td></tr>
+            <tr><td><code>/eng-review</code></td><td>Reviews your diff and flags only what would actually block a merge, with a confidence level on every finding. Not here to nitpick quotes — here to tell you what's going to break.</td></tr>
+            <tr><td><code>/eng-ship</code></td><td>Commits, pushes, and opens the PR with a description written from the actual diff. Flatly refuses if tests are failing or a secret is sitting in the diff.</td></tr>
+            <tr><td><code>/eng-catchup</code></td><td>The memory cure. Back after a pull, a <code>/clear</code>, or a long weekend? It reads what changed so you're not re-explaining your own repo to your own assistant.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3><span class="step-num">2</span>VideoKit</h3>
+      <p>17 commands that take video from "I have an idea" to "the file is rendered and it's good" — a video studio inside your terminal. For content creators, marketers, and agencies drowning in "we need it in every aspect ratio by tomorrow."</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Command</th><th>What it does</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>/video-make</code></td><td>Goes from a description, a URL, or even a repo straight to a finished video — music, transitions, the whole thing. Then it watches its own output: a real post-render check so what lands on disk is confirmed, not secretly 4 seconds of black frames.</td></tr>
+            <tr><td><code>/video-clone</code></td><td>Point it at a video you wish you'd made. It measures every scene of the reference — cuts, palette, type, motion, easing — then rebuilds that exact style in Remotion with your content, and re-analyzes its own render to prove the match (scene count, durations, cuts per 10s, all compared back).</td></tr>
+            <tr><td><code>/video-social</code></td><td>Takes one long video and cuts it for TikTok, Reels, Shorts, LinkedIn, and X in a single run. Every format, one command.</td></tr>
+            <tr><td><code>/video-repurpose</code></td><td>Finds the best moments in a long piece automatically — no scrubbing a timeline at midnight for the good 12 seconds.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3><span class="step-num">3</span>MarketingKit</h3>
+      <p>The thing nobody else nails: it makes the writing sound like a human wrote it. For founders doing their own marketing, content teams, and agencies tired of editing the AI smell out of every draft by hand.</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Command</th><th>What it does</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>/mkt-humanize</code></td><td>The moat. Sweeps a draft for the 14 tells that scream "AI wrote this" — em dashes used as glue, the "it's not X it's Y" tic, banned words like <em>delve, leverage, seamless, elevate</em>. It doesn't just flag them; it rewrites the piece in your voice and shows the worst 5 fixes as before/after lines.</td></tr>
+            <tr><td><code>/mkt-launch</code></td><td>Writes the full launch set in one pass — X post, LinkedIn post, Product Hunt tagline and description, and the launch email — all run through the voice engine.</td></tr>
+            <tr><td><code>/mkt-competitors</code></td><td>Tears down a competitor's content engine: their hooks, cadence, formats, and the gaps worth stealing.</td></tr>
+            <tr><td><code>/mkt-voice</code></td><td>Run this first: builds a voice file from 5–10 of your real posts — your sentence rhythm, openers, the words you own. After that, every command writes like you instead of a chatbot impersonating you.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3><span class="step-num">4</span>SEOKit</h3>
+      <p>SEO is mostly knowing where the free money is hiding — this kit finds it. For content teams, SEO agencies, and founders growing on organic instead of burning cash on ads.</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Command</th><th>What it does</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>/seo-quick-wins</code></td><td>Pulls 90 days of Search Console data, finds the keywords you almost rank for (positions 8–20 where Google already half-trusts you) plus snippets quietly losing clicks, then ranks every win by click prize in actual clicks/month, with a one-line fix per row.</td></tr>
+            <tr><td><code>/seo-keywords</code></td><td>Keyword clusters with volume, difficulty, and the part most tools skip: whether the searcher is researching or ready to buy. Intent is the whole game.</td></tr>
+            <tr><td><code>/seo-audit</code></td><td>Audits the entire site into one readable report — top 3 problems first, each as evidence, impact, and fix. Not a 4,000-row CSV you'll never open.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3><span class="step-num">5</span>EcomKit</h3>
+      <p>This kit talks in money — every output lands in dollars, hours, or margin points. For ecom founders, Shopify operators, and agencies running stores for clients who only care about one number.</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Command</th><th>What it does</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>/ecom-no-sales</code></td><td>The reality check. Compares your conversion rate to the real benchmark for your price band, walks your store like a shopper (homepage, collection, best-seller, cart), and hands back at most 8 fixes ranked by expected dollars/month. If traffic is the real problem, it says so to your face.</td></tr>
+            <tr><td><code>/ecom-flows</code></td><td>Writes all 5 core Klaviyo flows with full email copy in your brand voice, send timing, and discount logic — welcome, abandoned cart, browse abandon, post-purchase, winback.</td></tr>
+            <tr><td><code>/ecom-ads</code></td><td>Builds a 27-ad test batch (3 hooks &times; 3 bodies &times; 3 CTAs) pulled straight from your own customers' review language.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3><span class="step-num">6</span>TradeKit</h3>
+      <p>A bonus seat: an AI quant research desk for prediction markets and crypto. For prediction-market traders and crypto researchers who want an edge without the fairy tale.</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Command</th><th>What it does</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>/tk-scan</code></td><td>Scans live Polymarket and Kalshi markets and ranks them by an edge score — where your model and the crowd's price disagree.</td></tr>
+            <tr><td><code>/tk-dashboard</code></td><td>Spins up a full quant dashboard in your browser, built from your own markets — live scanner, sizing, the works.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn">
+        <span class="ico">&#9888;&#65039;</span>
+        <span class="label">The honest part</span>
+        <p>TradeKit is <strong>read-only and paper by default</strong> — it does not touch your money. Roughly 84% of Polymarket wallets lose, and any tool promising you profits is selling you something. It's a research desk, not a money printer: it makes you sharper and keeps you disciplined. That's it.</p>
+      </div>
+
+      <h2>Getting Started</h2>
+      <div class="table-scroll">
+        <table>
+          <tbody>
+            <tr><td>1</td><td>Go to <a href="https://theclaudekit.com" rel="noopener">theclaudekit.com</a> and look at the kits.</td></tr>
+            <tr><td>2</td><td>Pick the one that matches the work you actually do this week.</td></tr>
+            <tr><td>3</td><td>Run <code>ck install [kitname]</code> and follow the steps.</td></tr>
+            <tr><td>4</td><td>Watch Claude Code turn into that specialist in front of you.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="closer">Most people read this, nod, and install nothing — and keep opening cold sessions and re-explaining their repo every single time. The ones who run that first command today have a full team by the end of the week. And they're not going back to a single chat box.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="nav-link" href="../index.html">&larr; All guides</a>
+      <span>A personal collection of guides.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var code = btn.closest('.code-block').querySelector('code');
+        var text = code.innerText;
+        navigator.clipboard.writeText(text).then(function () {
+          var prev = btn.textContent;
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(function () {
+            btn.textContent = prev;
+            btn.classList.remove('copied');
+          }, 1600);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
