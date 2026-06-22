@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Create Loops with Claude — Guides</title>
+  <meta name="description" content="Stop crafting prompts and start designing loops — a hands-on, nine-step guide to building self-running Claude systems with triggers, memory files, verifiers, worktrees, and hard stop conditions." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='9' fill='%230f7268'/></svg>" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><span class="dot"></span> Guides</a>
+      <a class="nav-link" href="../index.html">All guides</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="guide-head">
+      <a class="back" href="../index.html">&larr; Back to all guides</a>
+      <h1>How to Create Loops with Claude</h1>
+      <p class="guide-meta">AI &middot; Agents &middot; A nine-step build</p>
+    </div>
+
+    <article>
+      <h2>The Big Idea</h2>
+      <p>Stop making prompts. Start designing loops.</p>
+      <p>A prompt gets you one response. A loop gets you a system that keeps working after you close the laptop. Boris Cherny, who runs Claude Code at Anthropic, put it plainly: he doesn't prompt Claude anymore — he has loops running that prompt Claude and figure out what to do. His job is to write loops. Peter Steinberger framed the same shift differently: you shouldn't be prompting coding agents anymore, you should be designing loops that prompt your agents.</p>
+
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">Key insight</span>
+        <p>A loop is a recursive goal. You define a purpose, the agent iterates against it, and the loop runs until a real stopping condition is met. The agent forgets everything between runs. The loop does not. That single fact is the entire architecture.</p>
+      </div>
+
+      <h2>What a Loop Actually Is</h2>
+      <p>Addy Osmani, the Google engineer who wrote the essay that named this practice, breaks a loop into six parts. Every working loop is some combination of these.</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Part</th><th>What it does</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Automations</td><td>What makes a loop a loop instead of a one-time run — a schedule, cron job, webhook, or hook that fires without you typing anything.</td></tr>
+            <tr><td>Worktrees</td><td>Isolated copies of the repo so parallel agents don't step on each other's files.</td></tr>
+            <tr><td>Skills</td><td>Procedure manuals the agent reads instead of being told from scratch every time.</td></tr>
+            <tr><td>Connectors</td><td>Links to the outside world the loop reads from and writes to.</td></tr>
+            <tr><td>Sub-agents</td><td>Specialized agents that explore, implement, or verify on the loop's behalf.</td></tr>
+            <tr><td>Memory</td><td>A state file on disk — usually markdown — that survives between runs. The agent forgets; the file does not.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>The Build</h2>
+
+      <h3><span class="step-num">1</span>Start with one trigger</h3>
+      <p>Every loop starts with something that fires without you. The simplest version is a cron job that runs a Claude Code prompt on a schedule. The next version is a hook — a script that runs automatically when a specific event happens, like a commit or a file change.</p>
+      <p class="usecase"><b>Use case:</b> pick one recurring task you currently do manually and turn the trigger into the first piece.</p>
+      <div class="code-block" data-lang="prompt">
+        <div class="code-head">
+          <span class="code-label">prompt</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>Every morning at 8am, read yesterday's CI failures, open issues, and
+recent commits, and write your findings to a markdown file.</code></pre>
+      </div>
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">Insight</span>
+        <p>Don't try to build the full six-part system on day one. One automation that writes one state file is already more leverage than a hundred well-crafted prompts — because it runs without you.</p>
+      </div>
+
+      <h3><span class="step-num">2</span>Give the loop a memory file</h3>
+      <p>Create one markdown file — call it <code>STATE.md</code> or <code>PROGRESS.md</code> — and place it where every iteration can read and write it. This file is the loop's only memory. Everything the agent needs to pick up where it left off goes here.</p>
+      <p>At the start of each run the agent reads this file first; at the end it writes back what happened and what comes next. This is the <strong>PROGRESS.md pattern</strong>, and it's the single most important file in any loop. Without it, every run starts from zero regardless of how many runs came before.</p>
+      <div class="code-block" data-lang="markdown">
+        <div class="code-head">
+          <span class="code-label">PROGRESS.md</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>## Done last run
+- ...
+
+## In progress
+- ...
+
+## Blocked
+- ...
+
+## Try next
+- ...</code></pre>
+      </div>
+      <div class="callout warn">
+        <span class="ico">&#9888;&#65039;</span>
+        <span class="label">Watch out</span>
+        <p>Keep it short. A memory file the agent has to read 2000 lines of is worse than no memory file at all.</p>
+      </div>
+
+      <h3><span class="step-num">3</span>Split the writer from the checker</h3>
+      <p>The model that wrote the code is, in Osmani's words, <em>too nice grading its own homework</em>. A single agent that writes and then reviews its own work marks itself done more often than it should.</p>
+      <p>The fix is the <strong>evaluator-optimizer pattern</strong>, named in Anthropic's own writeup on building effective agents: one agent generates, a second critiques against an objective standard, and the loop repeats until the check passes. The check has to fail on something real — a test suite, a type checker, a build command, a linter.</p>
+      <div class="callout warn">
+        <span class="ico">&#9888;&#65039;</span>
+        <span class="label">Watch out</span>
+        <p>A second agent told to "review this" with no objective signal just adds a second optimist. It will agree with the first agent more often than not. The verifier needs a hard gate, not an opinion.</p>
+      </div>
+
+      <h3><span class="step-num">4</span>Isolate parallel work with worktrees</h3>
+      <p>Once you're running more than one agent against the same codebase, isolation stops being optional. Give each agent its own working directory pointed at its own branch:</p>
+      <div class="code-block" data-lang="bash">
+        <div class="code-head">
+          <span class="code-label">bash</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>git worktree add ../agent-1-branch</code></pre>
+      </div>
+      <p>A typical parallel setup: one sub-agent explores and writes a plan, a second implements against that plan in its own worktree, a third verifies the implementation against tests in a separate worktree. Each agent only ever sees its own copy. This is where loops scale from "one task running in the background" to "an entire pipeline running at once" — each isolated, each reporting back to the shared memory file when done.</p>
+
+      <h3><span class="step-num">5</span>Set a hard stop condition</h3>
+      <p>A loop without a real exit condition fails quietly. Engineer Geoffrey Huntley documented this as the <strong>"Ralph Wiggum loop"</strong>: an agent meant to emit a completion signal only when finished emits it early, and the loop exits believing a half-done job is complete.</p>
+      <p>Your stop condition needs to be checkable by something other than the agent's own claim.</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Real stop condition</th><th>Not a stop condition</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>The test suite passes</td><td>The agent says it's finished</td></tr>
+            <tr><td>The build succeeds</td><td>&nbsp;</td></tr>
+            <tr><td>The linked ticket moves to Done with a passing CI run</td><td>&nbsp;</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Set a maximum iteration count as a backstop regardless of your primary condition — ten or twenty is reasonable for most loops. If the loop hits the ceiling without meeting the real stop condition, it should halt and flag for review, not keep running.</p>
+
+      <h3><span class="step-num">6</span>Wire in a human review checkpoint</h3>
+      <p>Not every loop should run fully unattended from day one. Boris Cherny's framing uses an <strong>autonomy ladder</strong> with four levels:</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Level</th><th>What the loop does</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Suggests only.</td></tr>
+            <tr><td>2</td><td>Drafts changes for a human to apply.</td></tr>
+            <tr><td>3</td><td>Applies low-risk changes but requires human approval before publish or merge.</td></tr>
+            <tr><td>4</td><td>Applies and completes automatically, with audit logs.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Start every new loop at level one or two. Run it for a week, read its output, and correct what it gets wrong. Once it consistently produces work you'd approve without changes, move it to level three. Level four is earned, not assumed.</p>
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">Insight</span>
+        <p>Runs that find something go to a triage inbox or flagged list. Runs that find nothing archive themselves silently. You should never have to open a loop's output to confirm that nothing happened.</p>
+      </div>
+
+      <h3><span class="step-num">7</span>Watch the token cost</h3>
+      <p>A single bad iteration is a wasted prompt. A single bad loop running unattended overnight is a bill. Agentic loops can run for dozens or hundreds of iterations, and each iteration is a full model call with the accumulated conversation history attached.</p>
+      <p>Before you let any loop run unsupervised, run it manually for three to five iterations and check the token usage per iteration. Multiply by your maximum iteration count for a worst-case cost per run; multiply that by how often the automation fires for a worst-case daily cost.</p>
+      <div class="callout warn">
+        <span class="ico">&#9888;&#65039;</span>
+        <span class="label">Watch out</span>
+        <p>Build a command allowlist for any loop that can execute shell commands — restrict it to what the task actually needs (<code>npm</code>, <code>git</code>, <code>ls</code>, <code>cat</code>). An agent with unrestricted shell access inside an unattended loop is the fastest way to turn a token-cost problem into a security problem.</p>
+      </div>
+
+      <h3><span class="step-num">8</span>Build the second loop differently than the first</h3>
+      <p>Your first loop should be small, single-purpose, and heavily supervised. Your second loop should connect to the first. This is where automations, skills, and memory start compounding instead of just running in parallel.</p>
+      <p>A daily triage loop writes findings to a shared state file. A second loop, also on a schedule, reads that file and picks the highest-priority item to act on. Neither needs the other to function, but together they form a pipeline that moves work from "discovered" to "in progress" without you touching either one.</p>
+      <p>This is also when skills start paying off. Once you've written a skill file for how your loop should triage CI failures, every future loop that touches CI failures reads that same skill instead of you re-explaining it. The loops don't just run independently — they share what they've learned.</p>
+
+      <h3><span class="step-num">9</span>Let your job become loop design</h3>
+      <p>Once a few loops are running, your daily work changes shape. You stop opening a chat window to ask a question and start opening a triage inbox to review what the loops found overnight. The to-do list stops being a static pile of tasks and becomes a set of agents, routines, and loops that keep converting ideas into drafts, fixes, and reviews.</p>
+      <p>This doesn't mean you stop deciding what matters. It means the deciding happens at the loop-design level instead of the per-task level. You write fewer prompts not because you're doing less, but because the loops write them for you — and your attention moves to the parts that actually need a human: the review checkpoint, the stop condition, and the next loop worth building.</p>
+
+      <p class="closer">A prompt ends when the response arrives. A loop keeps working after you close the laptop. The leverage has moved from crafting the perfect message to building the system that sends messages for you, reviews the results, and decides what happens next.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="nav-link" href="../index.html">&larr; All guides</a>
+      <span>A personal collection of guides.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var code = btn.closest('.code-block').querySelector('code');
+        var text = code.innerText;
+        navigator.clipboard.writeText(text).then(function () {
+          var prev = btn.textContent;
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(function () {
+            btn.textContent = prev;
+            btn.classList.remove('copied');
+          }, 1600);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
