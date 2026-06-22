@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude Artifacts: The Complete Guide — Guides</title>
+  <meta name="description" content="What Claude Artifacts are, how to trigger them, the types you can build, sharing and embedding, the 2026 live-data update, and the limitations to know." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='9' fill='%230f7268'/></svg>" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><span class="dot"></span> Guides</a>
+      <a class="nav-link" href="../index.html">All guides</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="guide-head">
+      <a class="back" href="../index.html">&larr; Back to all guides</a>
+      <h1>Claude Artifacts: The Complete Guide</h1>
+      <p class="guide-meta">AI &middot; Tools &middot; Build, share, embed</p>
+    </div>
+
+    <article>
+      <h2>The Big Idea</h2>
+      <p>Artifacts are interactive outputs Claude renders in a split-pane preview beside your conversation. Instead of showing raw code, Claude shows the live, working result &mdash; a calculator you can click, a chart with real data, a diagram, a small game. Ask in plain language, watch it run, then share or embed it.</p>
+
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">Key insight</span>
+        <p>Artifacts, Projects, and Claude Code solve different jobs: <strong>Projects</strong> store persistent context (files, instructions); <strong>Claude Code</strong> edits local codebases from the CLI; <strong>Artifacts</strong> are shareable browser previews generated from a conversation.</p>
+      </div>
+
+      <h2>What You Can Build</h2>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Type</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>HTML / CSS / JavaScript</td><td>Can pull external CDN resources.</td></tr>
+            <tr><td>React components</td><td>Rendered in-browser via Babel.</td></tr>
+            <tr><td>SVG graphics</td><td>Vector art and illustrations.</td></tr>
+            <tr><td>Mermaid diagrams</td><td>Flowcharts, sequence, ER, Gantt.</td></tr>
+            <tr><td>Code files</td><td>Syntax-highlighted, any language.</td></tr>
+            <tr><td>Markdown documents</td><td>Formatted docs, r&eacute;sum&eacute;s, proposals.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Single-conversation examples include working calculators, data dashboards with real charts, React forms, and browser games like Tetris or Snake.</p>
+
+      <h2>How They're Triggered</h2>
+      <p>Artifacts appear automatically when Claude decides the output benefits from rendering. You can also ask explicitly: <em>"Build this as an artifact"</em> or <em>"Show it in the preview pane."</em></p>
+
+      <h2>The 2026 Updates</h2>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Update</th><th>What changed</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Live Artifacts (April)</td><td>In Claude Cowork, artifacts can connect to MCP servers and refresh with real data when opened &mdash; static snapshots become dynamic tools pulling from spreadsheets, databases, or live APIs.</td></tr>
+            <tr><td>Free tier (February)</td><td>Code, documents, and basic web artifacts work without a subscription. Advanced types and live connections still require a paid plan.</td></tr>
+            <tr><td>Embed button</td><td>A dedicated tool generates iframe snippets with sandbox configuration.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Sharing</h2>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Method</th><th>Account required</th><th>Expiry</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Share button</td><td>No</td><td>No</td></tr>
+            <tr><td>Publish</td><td>No</td><td>No</td></tr>
+            <tr><td>ShareDuo</td><td>No</td><td>Yes (1h&ndash;30d)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Standard HTML artifacts need no account. AI-powered ones that make runtime API calls require sign-in regardless of how they're shared.</p>
+
+      <h2>Embedding</h2>
+      <p>Use Claude's native embed flow with an allowed-domains configuration, or drop the artifact into an iframe:</p>
+      <div class="code-block" data-lang="html">
+        <div class="code-head">
+          <span class="code-label">html</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>&lt;iframe src="URL" width="100%" height="600"
+  frameborder="0" sandbox="allow-scripts allow-same-origin
+  allow-forms" loading="lazy"&gt;&lt;/iframe&gt;</code></pre>
+      </div>
+
+      <h2>Limitations to Know</h2>
+      <div class="callout warn">
+        <span class="ico">&#9888;&#65039;</span>
+        <span class="label">Watch out</span>
+        <ul>
+          <li><strong>localStorage fails</strong> &mdash; sandboxed iframes can't access browser storage; use in-memory variables or a backend.</li>
+          <li><strong>Single file only</strong> &mdash; no multi-file projects; everything must be inlined.</li>
+          <li><strong>CDN allowlist</strong> &mdash; corporate firewalls may block external resources.</li>
+          <li><strong>AI-powered artifacts require login</strong> &mdash; API-calling artifacts can't be fully public.</li>
+          <li><strong>Mobile quirks</strong> &mdash; responsive design needs explicit testing.</li>
+        </ul>
+      </div>
+
+      <p class="closer">Artifacts are where Claude stops describing and starts showing. Ask for the working thing, watch it render, and &mdash; with the 2026 live-data update &mdash; wire it to your real data and hand it to someone with a link.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="nav-link" href="../index.html">&larr; All guides</a>
+      <span>A personal collection of guides.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var code = btn.closest('.code-block').querySelector('code');
+        var text = code.innerText;
+        navigator.clipboard.writeText(text).then(function () {
+          var prev = btn.textContent;
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(function () {
+            btn.textContent = prev;
+            btn.classList.remove('copied');
+          }, 1600);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

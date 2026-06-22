@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building Claude Skills: A Complete How-To — Guides</title>
+  <meta name="description" content="How to build a Claude Skill: the file structure, SKILL.md frontmatter and naming rules, progressive disclosure, a worked example, install commands, and testing." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='9' fill='%230f7268'/></svg>" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><span class="dot"></span> Guides</a>
+      <a class="nav-link" href="../index.html">All guides</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="guide-head">
+      <a class="back" href="../index.html">&larr; Back to all guides</a>
+      <h1>Building Claude Skills: A Complete How-To</h1>
+      <p class="guide-meta">AI &middot; Claude &middot; Build your own skill</p>
+    </div>
+
+    <article>
+      <h2>The Big Idea</h2>
+      <p>A Claude Skill is just a folder of instructions that loads automatically across Claude.ai, Claude Code, and the API. No models, no paid add-ons &mdash; open-source markdown plus optional supporting files. The trick that makes them efficient is <strong>progressive disclosure</strong>: only what's needed is loaded at each moment.</p>
+
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">The three disclosure layers</span>
+        <ul>
+          <li><strong>YAML frontmatter</strong> &mdash; always loaded (~100 tokens). The name + description that tell Claude when to reach for the skill.</li>
+          <li><strong>SKILL.md body</strong> &mdash; loaded when the skill is judged relevant.</li>
+          <li><strong>references/ and assets/</strong> &mdash; loaded only when the body instructs Claude to open them.</li>
+        </ul>
+      </div>
+
+      <h2>The File Structure</h2>
+      <div class="code-block" data-lang="text">
+        <div class="code-head">
+          <span class="code-label">text</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>your-skill-name/
+├── SKILL.md            # Required - case-sensitive
+├── scripts/            # Optional - executable code
+│   └── process_data.py
+├── references/         # Optional - documentation, loaded on demand
+│   └── style-guide.md
+└── assets/             # Optional - templates
+    └── template.md</code></pre>
+      </div>
+
+      <h2>The Naming Rules That Trip People Up</h2>
+      <div class="callout warn">
+        <span class="ico">&#9888;&#65039;</span>
+        <span class="label">Get these exact</span>
+        <ul>
+          <li><strong>Folder name:</strong> kebab-case only, and it must match the <code>name</code> field in frontmatter exactly.</li>
+          <li><strong>SKILL.md:</strong> case-sensitive &mdash; <code>skill.md</code> or <code>SKILL.MD</code> won't be recognized.</li>
+          <li><strong>No README.md inside the skill folder</strong> (the human-readable README goes at the repo root).</li>
+          <li><strong>Reserved words:</strong> the name can't contain "claude" or "anthropic".</li>
+          <li><strong>No XML brackets</strong> in frontmatter (security restriction).</li>
+        </ul>
+      </div>
+
+      <h2>The Frontmatter</h2>
+      <p>Minimal required form:</p>
+      <div class="code-block" data-lang="yaml">
+        <div class="code-head">
+          <span class="code-label">yaml</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>---
+name: your-skill-name
+description: What it does. Use when [specific trigger phrases].
+---</code></pre>
+      </div>
+      <p>Full form with optional fields:</p>
+      <div class="code-block" data-lang="yaml">
+        <div class="code-head">
+          <span class="code-label">yaml</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>---
+name: your-skill-name
+description: [Action] + [When to use] + [Key capabilities] (max 1024 chars, no XML)
+license: MIT
+compatibility: Environment requirements (max 500 chars)
+metadata:
+  author: Your Name
+  version: 1.0.0
+  mcp-server: optional-server-name
+---</code></pre>
+      </div>
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">The description is everything</span>
+        <p>It's the only part always in context, so it decides whether the skill ever triggers. Be specific about tasks and trigger phrases. <br><strong>Bad:</strong> "Helps with design files." <br><strong>Good:</strong> "Analyzes Figma files and generates developer handoff docs. Use when the user uploads .fig files or asks for 'design specs'."</p>
+      </div>
+
+      <h2>The Body of SKILL.md</h2>
+      <p>Structure it as instructions, examples, and troubleshooting. Three writing practices make it reliable:</p>
+      <ol>
+        <li>Exact commands with their expected output &mdash; not vague directives.</li>
+        <li>Error handling for foreseeable failures.</li>
+        <li>Clear file references using exact paths.</li>
+      </ol>
+
+      <h2>Worked Example: a Blog-Writing Skill</h2>
+      <p class="usecase"><b>Use case:</b> writers want consistent house style without re-pasting the guidelines every time.</p>
+      <div class="code-block" data-lang="text">
+        <div class="code-head">
+          <span class="code-label">structure</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>blog-content-writer/
+├── SKILL.md
+├── references/
+│   └── style-guide.md
+└── assets/
+    └── post-template.md</code></pre>
+      </div>
+      <div class="code-block" data-lang="yaml">
+        <div class="code-head">
+          <span class="code-label">SKILL.md frontmatter</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>---
+name: blog-content-writer
+description: Drafts blog posts following the company style guide.
+  Use when the user asks to "write a blog post", "draft content for the blog",
+  "create a post", or produce long-form content for publication.
+license: MIT
+metadata:
+  author: Content Team
+  version: 1.1.0
+---</code></pre>
+      </div>
+      <p>The body's workflow: (1) load <code>references/style-guide.md</code> before drafting, (2) clarify the brief &mdash; topic, audience, word count, goal, (3) draft applying the guidelines, (4) run a 7-item quality checklist, (5) return the draft with a summary block. The style guide only loads when Step 1 tells Claude to read it &mdash; progressive disclosure in action.</p>
+
+      <h2>Installing It</h2>
+      <div class="code-block" data-lang="bash">
+        <div class="code-head">
+          <span class="code-label">Claude Code — global</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>mkdir -p ~/.claude/skills
+cp -r blog-content-writer/ ~/.claude/skills/
+ls ~/.claude/skills/</code></pre>
+      </div>
+      <div class="code-block" data-lang="bash">
+        <div class="code-head">
+          <span class="code-label">Claude Code — project-level</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>mkdir -p ./.claude/skills
+cp -r blog-content-writer/ ./.claude/skills/
+ls ./.claude/skills/</code></pre>
+      </div>
+      <p>For <strong>Claude.ai</strong>: zip the skill folder, then go to Settings &rarr; Capabilities &rarr; Skills &rarr; upload the zip.</p>
+
+      <h2>Testing the Trigger</h2>
+      <p>The hardest part of a skill isn't the instructions &mdash; it's making it fire at the right time and stay quiet otherwise. Build a test matrix:</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Should trigger on</th><th>Should NOT trigger on</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>"Write a blog post about&hellip;"</td><td>"Summarize this article"</td></tr>
+            <tr><td>"Draft content for&hellip;"</td><td>"Help me fix this code"</td></tr>
+            <tr><td>"Create a post following our style&hellip;"</td><td>"Write an email"</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Aim for 90%+ automatic triggering on relevant requests. After any edit to SKILL.md or the frontmatter, rerun the full matrix before distributing.</p>
+
+      <h2>Common Problems</h2>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Problem</th><th>Cause</th><th>Fix</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Never triggers</td><td>Vague description, missing phrases</td><td>Add specific trigger language</td></tr>
+            <tr><td>Triggers constantly</td><td>Description too broad</td><td>Add explicit "Do NOT use when" conditions</td></tr>
+            <tr><td>Instructions ignored</td><td>Vague directives</td><td>Require exact commands and outputs</td></tr>
+            <tr><td>Works in Claude.ai, fails in Code</td><td>Missing dependencies</td><td>Document in the compatibility field</td></tr>
+            <tr><td>Inconsistent output</td><td>Too flexible</td><td>Add a quality checklist with self-verification</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">Key insight</span>
+        <p>The official guide promises a working skill in 15&ndash;30 minutes: start with one concrete use case, define trigger conditions <em>before</em> writing instructions, test triggering first, then iterate on the hardest task until it works &mdash; and extract that approach into the skill.</p>
+      </div>
+
+      <p class="closer">A skill is the cure for re-teaching Claude the same workflow. Write it once, name its trigger precisely, test that it fires, and it becomes a capability you carry into every conversation.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="nav-link" href="../index.html">&larr; All guides</a>
+      <span>A personal collection of guides.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var code = btn.closest('.code-block').querySelector('code');
+        var text = code.innerText;
+        navigator.clipboard.writeText(text).then(function () {
+          var prev = btn.textContent;
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(function () {
+            btn.textContent = prev;
+            btn.classList.remove('copied');
+          }, 1600);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

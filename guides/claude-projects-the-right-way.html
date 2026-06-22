@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Use Claude Projects the Right Way — Guides</title>
+  <meta name="description" content="A practical guide to Claude Projects: naming, custom instructions, a curated knowledge base, organizing chats, and sharing." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='9' fill='%230f7268'/></svg>" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><span class="dot"></span> Guides</a>
+      <a class="nav-link" href="../index.html">All guides</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="guide-head">
+      <a class="back" href="../index.html">&larr; Back to all guides</a>
+      <h1>How to Use Claude Projects the Right Way</h1>
+      <p class="guide-meta">AI &middot; Productivity &middot; A workspace setup</p>
+    </div>
+
+    <article>
+      <h2>The Big Idea</h2>
+      <p>Projects turn Claude from a scattered chat tool into an organized workspace. Instead of hunting through endless conversation history, you give one project a name, a set of standing instructions, and a small curated knowledge base — and every chat inside it inherits that context automatically.</p>
+
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">Key insight</span>
+        <p>Chats inside a project <strong>don't</strong> share information with each other. Only the instructions and the knowledge base carry across. If an insight needs to persist between chats, put it in the knowledge base — not in a message.</p>
+      </div>
+
+      <h2>The Setup</h2>
+
+      <h3><span class="step-num">1</span>Create a project with a real name</h3>
+      <p>Go to <a href="https://claude.ai/projects" rel="noopener">claude.ai/projects</a> &rarr; <strong>New Project</strong>. Give it a descriptive name like <em>"Q3 2026 Product Launch — Email Sequence"</em>, not "Emails". Add an optional description.</p>
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">Insight</span>
+        <p>The name and description are for <em>you</em>, not for Claude — they're how you find the right workspace later. On Team/Enterprise plans you also set visibility (private or organization-wide) here.</p>
+      </div>
+
+      <h3><span class="step-num">2</span>Write the custom instructions</h3>
+      <p>Open <strong>Instructions</strong> inside the project. These apply to every chat in the workspace automatically, so write them as a detailed brief, not vague guidelines. Cover four areas:</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Area</th><th>What to specify</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Role / audience</td><td>Who consumes the output (a client, your team, beginners).</td></tr>
+            <tr><td>Tone</td><td>Formal, conversational, technical, or plain-language.</td></tr>
+            <tr><td>Format</td><td>Length, headings, code blocks, structure preferences.</td></tr>
+            <tr><td>Rules</td><td>Citation standards, assumptions to make, language conventions.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="usecase"><b>Example:</b> for a blog-drafting project &mdash; <em>"Default to 1,200 words, use H2/H3 headings only, avoid em dashes, end each section with a one-sentence takeaway."</em> Now you never repeat that in a new chat.</p>
+
+      <h3><span class="step-num">3</span>Build the knowledge base</h3>
+      <p>Under <strong>Files</strong>, click <strong>+</strong> and upload PDFs, Word docs, spreadsheets, code, or plain text. The content becomes available across all chats in the project.</p>
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">Paid-plan advantage</span>
+        <p>On paid plans, RAG (Retrieval Augmented Generation) engages automatically as the knowledge base approaches the context limit, expanding effective capacity up to ~10x. Free users can create up to five projects but don't get RAG scaling.</p>
+      </div>
+      <p>Curate it like a reference library:</p>
+      <ul>
+        <li>Upload only current, relevant documents.</li>
+        <li>Replace outdated versions instead of stacking duplicates.</li>
+        <li>Use clear, descriptive filenames.</li>
+        <li>Five strong docs beat forty scattered ones.</li>
+      </ul>
+
+      <h3><span class="step-num">4</span>Organize the chats</h3>
+      <p>Each chat is independent, so treat chats as tasks:</p>
+      <ul>
+        <li>Create a separate chat for each distinct task.</li>
+        <li>Rename auto-generated titles for clarity.</li>
+        <li>Move stray chats from your history into the project via the dropdown menu.</li>
+        <li>Pin frequently-used projects to the left sidebar.</li>
+        <li>Archive completed projects to cut clutter.</li>
+      </ul>
+
+      <h3><span class="step-num">5</span>Share it (Team / Enterprise)</h3>
+      <p>Click <strong>Share project</strong> next to the project name, then add emails individually or paste a list. Two permission levels:</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Level</th><th>What they can do</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Can use</td><td>View contents and work within the project; no editing.</td></tr>
+            <tr><td>Can edit</td><td>Modify instructions, knowledge, and manage members.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Shared projects appear under the <strong>Shared with me</strong> tab.</p>
+      <div class="callout warn">
+        <span class="ico">&#9888;&#65039;</span>
+        <span class="label">Watch out</span>
+        <p>Archiving a shared project resets all permissions to private. You can still open archived chat history, but you must unarchive a project before deleting it.</p>
+      </div>
+
+      <h2>Working Habits That Pay Off</h2>
+      <ul>
+        <li>One project per task &mdash; don't combine unrelated work.</li>
+        <li>When Claude repeats a mistake, update the project instructions instead of correcting it every time.</li>
+        <li>Good fits: client work, thesis chapters, a job search, book drafts, recurring reports.</li>
+        <li>If multi-chat work hinges on one insight, add that insight to the knowledge base.</li>
+      </ul>
+
+      <p class="closer">Same Claude, completely different experience. A project isn't a folder of chats &mdash; it's a standing brief plus a reference library, so every conversation starts already knowing the job.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="nav-link" href="../index.html">&larr; All guides</a>
+      <span>A personal collection of guides.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var code = btn.closest('.code-block').querySelector('code');
+        var text = code.innerText;
+        navigator.clipboard.writeText(text).then(function () {
+          var prev = btn.textContent;
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(function () {
+            btn.textContent = prev;
+            btn.classList.remove('copied');
+          }, 1600);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
