@@ -30,7 +30,25 @@ If neither is clear, ask which one and for the content.
    - Callouts for warnings/key insights.
    Keep it faithful to the source — distill and structure, don't invent facts.
 
-3. **Render the HTML.** Copy the structure and class names from
+3. **Check for duplicates BEFORE rendering.** Don't create a guide that already
+   exists. Decide the kebab-case slug from the title, then check both the filesystem
+   and the existing cards:
+   ```bash
+   ls guides/                                   # existing guide files
+   grep -o 'guides/[a-z0-9-]*\.html' index.html # hrefs already carded
+   ```
+   Flag a likely duplicate if any of these is true:
+   - A file `guides/<slug>.html` already exists, OR
+   - An existing guide's slug/title is the same topic (near-identical wording, or the
+     same source URL), OR
+   - An existing card links to the same content.
+
+   If a duplicate is likely, STOP and ask the user how to proceed — overwrite/update the
+   existing guide, publish under a clearly different slug, or cancel. Do not silently
+   create a second copy or clobber an existing file. Only continue once it's confirmed
+   this is genuinely new (or the user chose to overwrite).
+
+4. **Render the HTML.** Copy the structure and class names from
    `guides/second-brain-obsidian-claude.html` exactly (same `<head>`, same CSS link
    `../css/style.css`, same header/footer, same callout/table/code-block markup and
    the copy-to-clipboard script). Only the body content changes.
@@ -38,14 +56,14 @@ If neither is clear, ask which one and for the content.
    - Use semantic HTML: `<h1>`/`<h2>`, `<table>` wrapped in the scroll container,
      `<pre><code>` for commands, callout `<div>`s for ⚠️ / insights.
 
-4. **Wire it into `index.html`.** Add one `<a class="card">…</a>` block to the card
+5. **Wire it into `index.html`.** Add one `<a class="card">…</a>` block to the card
    grid (copy an existing card, update title/description/href). Leave the dashed
    placeholder card last.
 
-5. **Verify.** Open the new file's relative links resolve (css path `../css/style.css`)
+6. **Verify.** Open the new file's relative links resolve (css path `../css/style.css`)
    and that the card href matches the new filename.
 
-6. **Publish.** Stage, commit, and push:
+7. **Publish.** Stage, commit, and push:
    ```bash
    git add -A
    git commit -m "Add guide: <title>"
@@ -53,7 +71,7 @@ If neither is clear, ask which one and for the content.
    ```
    End git commit messages with the project's co-author trailer if configured.
 
-7. **Wait for GitHub Pages to deploy, then verify the live site.** Pushing does NOT
+8. **Wait for GitHub Pages to deploy, then verify the live site.** Pushing does NOT
    make the guide live immediately — GitHub Pages rebuilds asynchronously and can lag
    a minute or two behind the push. Do not tell the user the guide is live until you've
    confirmed the deploy finished and the page actually serves. Steps:
@@ -70,7 +88,7 @@ If neither is clear, ask which one and for the content.
      ```
    - Only after both checks pass, report the guide as live.
 
-8. **Report** the new file path, the card added, the pushed commit, and the verified
+9. **Report** the new file path, the card added, the pushed commit, and the verified
    live URL.
 
 ## Conventions
