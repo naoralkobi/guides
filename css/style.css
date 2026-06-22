@@ -257,6 +257,112 @@ a.card:hover .read .arrow { transform: translateX(4px); }
 }
 .card.placeholder h3 { font-family: var(--font-sans); font-size: 1rem; color: var(--ink-faint); }
 
+/* ---------- Topic jump-nav (table of contents) ---------- */
+.topic-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 44px 0 4px;
+}
+.topic-nav .label {
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-weight: 650;
+  color: var(--ink-faint);
+  margin-right: 4px;
+}
+.topic-nav a {
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 6px 14px;
+  transition: color .16s ease, border-color .16s ease, background .16s ease, transform .16s ease;
+}
+.topic-nav a:hover {
+  text-decoration: none;
+  color: var(--accent-ink);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateY(-1px);
+}
+.topic-nav a .n {
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+  margin-right: 7px;
+  font-weight: 700;
+}
+
+/* ---------- Topic section ---------- */
+.topic { margin-top: 60px; scroll-margin-top: 80px; }
+.topic:first-of-type { margin-top: 40px; }
+.topic-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 22px;
+  row-gap: 2px;
+  align-items: baseline;
+  padding-bottom: 18px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.topic-num {
+  grid-row: 1 / span 2;
+  align-self: start;
+  font-family: var(--font-serif);
+  font-size: clamp(2.3rem, 7vw, 3.2rem);
+  line-height: .82;
+  letter-spacing: -.02em;
+  color: var(--accent);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.topic-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  letter-spacing: -.01em;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.topic-title .count {
+  font-family: var(--font-sans);
+  font-size: .68rem;
+  font-weight: 650;
+  letter-spacing: .04em;
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+  border-radius: 100px;
+  padding: 3px 9px;
+}
+.topic-desc {
+  margin: 4px 0 0;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  max-width: 60ch;
+}
+
+/* ---------- Staggered entrance on load ---------- */
+@keyframes card-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .topic .card {
+    opacity: 0;
+    animation: card-rise .5s cubic-bezier(.2,.6,.2,1) forwards;
+  }
+  .topic .card:nth-child(1) { animation-delay: .03s; }
+  .topic .card:nth-child(2) { animation-delay: .09s; }
+  .topic .card:nth-child(3) { animation-delay: .15s; }
+  .topic .card:nth-child(4) { animation-delay: .21s; }
+}
+
 /* ============================================================
    Guide article
    ============================================================ */

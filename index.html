@@ -12,7 +12,6 @@
   <header class="site-header">
     <div class="wrap">
       <a class="brand" href="index.html"><span class="dot"></span> Guides</a>
-      <a class="nav-link" href="https://github.com" rel="noopener">Source</a>
     </div>
   </header>
 
@@ -24,92 +23,135 @@
     </section>
 
     <section class="wrap">
-      <div class="section-label">
-        <h2>All guides</h2>
-        <span class="rule"></span>
+      <nav class="topic-nav" aria-label="Browse by topic">
+        <span class="label">Browse</span>
+        <a href="#getting-started"><span class="n">01</span>Getting Started</a>
+        <a href="#claude-code"><span class="n">02</span>Claude Code</a>
+        <a href="#agents"><span class="n">03</span>Agents &amp; Automation</a>
+        <a href="#building"><span class="n">04</span>Building &amp; Design</a>
+      </nav>
+
+      <!-- To add a guide: copy a card block, point href at your new file in /guides,
+           drop it inside the matching topic's .card-grid, and update the text + count. -->
+
+      <!-- ============ 01 ============ -->
+      <div class="topic" id="getting-started">
+        <div class="topic-head">
+          <span class="topic-num">01</span>
+          <h2 class="topic-title">Getting Started with Claude <span class="count">3 guides</span></h2>
+          <p class="topic-desc">Set Claude up to understand you and your work — the day-one habits, projects, and memory that turn it into a thinking partner.</p>
+        </div>
+        <div class="card-grid">
+          <a class="card" href="guides/how-to-actually-use-claude-18-steps.html">
+            <span class="tag">Foundations</span>
+            <h3>How to Actually Use Claude: 18 Steps</h3>
+            <p>Set Claude up to remember and understand you — projects, custom instructions, and copy-paste prompts that turn it into a thinking partner, not a search engine.</p>
+            <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
+          </a>
+
+          <a class="card" href="guides/claude-projects-the-right-way.html">
+            <span class="tag">Workspaces</span>
+            <h3>How to Use Claude Projects the Right Way</h3>
+            <p>Turn scattered chats into an organized workspace — naming, standing instructions, a curated knowledge base, chat organization, and sharing, plus the one quirk that trips everyone up.</p>
+            <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
+          </a>
+
+          <a class="card" href="guides/second-brain-obsidian-claude.html">
+            <span class="tag">Knowledge</span>
+            <h3>Building a "Second Brain" with Obsidian + Claude</h3>
+            <p>Turn plain-text notes into a memory that grows itself — ten steps from install to autopilot.</p>
+            <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
+          </a>
+        </div>
       </div>
 
-      <div class="card-grid">
-        <!-- To add a guide: copy one card block below, point href at your new file in /guides, and update the text. -->
-        <a class="card" href="guides/second-brain-obsidian-claude.html">
-          <span class="tag">AI &middot; Productivity</span>
-          <h3>Building a "Second Brain" with Obsidian + Claude</h3>
-          <p>Turn plain-text notes into a memory that grows itself — ten steps from install to autopilot.</p>
-          <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
-        </a>
+      <!-- ============ 02 ============ -->
+      <div class="topic" id="claude-code">
+        <div class="topic-head">
+          <span class="topic-num">02</span>
+          <h2 class="topic-title">Claude Code &amp; Customization <span class="count">3 guides</span></h2>
+          <p class="topic-desc">Get more out of the CLI — the commands most people never find, ready-made vertical kits, and writing your own skills.</p>
+        </div>
+        <div class="card-grid">
+          <a class="card" href="guides/35-claude-code-commands-tricks-workflows.html">
+            <span class="tag">Claude Code</span>
+            <h3>35 Claude Code Commands, Tricks &amp; Workflows</h3>
+            <p>The 80% most users never find — essential commands, productivity moves, architecture and security prompts, workflow automation, and debug/recovery, all copy-paste ready.</p>
+            <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
+          </a>
 
-        <a class="card" href="guides/loops-the-skill-behind-ai-that-scales.html">
-          <span class="tag">AI &middot; Architecture</span>
-          <h3>Loops: The Quiet Skill Behind Every AI System That Scales</h3>
-          <p>Why model choice matters less than loop design — the four-component framework (trigger, process, verification, stop) behind AI that runs unattended.</p>
-          <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
-        </a>
+          <a class="card" href="guides/claudekit-vertical-kits.html">
+            <span class="tag">Kits</span>
+            <h3>ClaudeKit: Stop Re-Teaching Claude Code Every Session</h3>
+            <p>A marketplace of vertical kits — commands, skills, and subagents — that turn raw Claude Code into a ready-made specialist for engineering, video, marketing, SEO, ecom, or trading.</p>
+            <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
+          </a>
 
-        <a class="card" href="guides/claudekit-vertical-kits.html">
-          <span class="tag">AI &middot; Tools</span>
-          <h3>ClaudeKit: Stop Re-Teaching Claude Code Every Session</h3>
-          <p>A marketplace of vertical kits — commands, skills, and subagents — that turn raw Claude Code into a ready-made specialist for engineering, video, marketing, SEO, ecom, or trading.</p>
-          <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
-        </a>
+          <a class="card" href="guides/building-claude-skills.html">
+            <span class="tag">Skills</span>
+            <h3>Building Claude Skills: A Complete How-To</h3>
+            <p>Write your own skill — the folder structure, SKILL.md frontmatter and naming rules, progressive disclosure, a worked blog-writing example, install commands, and trigger testing.</p>
+            <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
+          </a>
+        </div>
+      </div>
 
-        <a class="card" href="guides/frontend-design-claude-skills.html">
-          <span class="tag">AI &middot; Design</span>
-          <h3>8 Frontend &amp; Design Skills for Claude</h3>
-          <p>A curated roundup of design skills that give Claude taste — aesthetic enforcers, color science, diagrams, motion/3D, generative art, and a design auditor.</p>
-          <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
-        </a>
+      <!-- ============ 03 ============ -->
+      <div class="topic" id="agents">
+        <div class="topic-head">
+          <span class="topic-num">03</span>
+          <h2 class="topic-title">Agents &amp; Automation <span class="count">3 guides</span></h2>
+          <p class="topic-desc">Move from one-off prompts to systems that run unattended — loop design, hands-on builds, and the SDK behind them.</p>
+        </div>
+        <div class="card-grid">
+          <a class="card" href="guides/loops-the-skill-behind-ai-that-scales.html">
+            <span class="tag">Architecture</span>
+            <h3>Loops: The Quiet Skill Behind Every AI System That Scales</h3>
+            <p>Why model choice matters less than loop design — the four-component framework (trigger, process, verification, stop) behind AI that runs unattended.</p>
+            <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
+          </a>
 
-        <a class="card" href="guides/how-to-actually-use-claude-18-steps.html">
-          <span class="tag">AI &middot; Productivity</span>
-          <h3>How to Actually Use Claude: 18 Steps</h3>
-          <p>Set Claude up to remember and understand you — projects, custom instructions, and copy-paste prompts that turn it into a thinking partner, not a search engine.</p>
-          <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
-        </a>
+          <a class="card" href="guides/how-to-create-loops-with-claude.html">
+            <span class="tag">Hands-on</span>
+            <h3>How to Create Loops with Claude</h3>
+            <p>Stop crafting prompts, start designing loops — nine hands-on steps from one trigger and a memory file to verifiers, worktrees, hard stop conditions, and the autonomy ladder.</p>
+            <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
+          </a>
 
-        <a class="card" href="guides/how-to-create-loops-with-claude.html">
-          <span class="tag">AI &middot; Agents</span>
-          <h3>How to Create Loops with Claude</h3>
-          <p>Stop crafting prompts, start designing loops — nine hands-on steps from one trigger and a memory file to verifiers, worktrees, hard stop conditions, and the autonomy ladder.</p>
-          <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
-        </a>
+          <a class="card" href="guides/getting-started-claude-agent-sdk.html">
+            <span class="tag">SDK</span>
+            <h3>Getting Started with the Claude Agent SDK</h3>
+            <p>Install the SDK and build TrendSmith, a market-research CLI that searches, fetches, and saves reports through the gather–act–verify loop — with the cost caps to keep it cheap.</p>
+            <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
+          </a>
+        </div>
+      </div>
 
-        <a class="card" href="guides/35-claude-code-commands-tricks-workflows.html">
-          <span class="tag">AI &middot; Claude Code</span>
-          <h3>35 Claude Code Commands, Tricks &amp; Workflows</h3>
-          <p>The 80% most users never find — essential commands, productivity moves, architecture and security prompts, workflow automation, and debug/recovery, all copy-paste ready.</p>
-          <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
-        </a>
+      <!-- ============ 04 ============ -->
+      <div class="topic" id="building">
+        <div class="topic-head">
+          <span class="topic-num">04</span>
+          <h2 class="topic-title">Building &amp; Design <span class="count">2 guides</span></h2>
+          <p class="topic-desc">Make Claude produce things you can see and ship — design taste and interactive artifacts.</p>
+        </div>
+        <div class="card-grid">
+          <a class="card" href="guides/frontend-design-claude-skills.html">
+            <span class="tag">Design</span>
+            <h3>8 Frontend &amp; Design Skills for Claude</h3>
+            <p>A curated roundup of design skills that give Claude taste — aesthetic enforcers, color science, diagrams, motion/3D, generative art, and a design auditor.</p>
+            <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
+          </a>
 
-        <a class="card" href="guides/claude-projects-the-right-way.html">
-          <span class="tag">AI &middot; Productivity</span>
-          <h3>How to Use Claude Projects the Right Way</h3>
-          <p>Turn scattered chats into an organized workspace — naming, standing instructions, a curated knowledge base, chat organization, and sharing, plus the one quirk that trips everyone up.</p>
-          <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
-        </a>
+          <a class="card" href="guides/claude-artifacts-complete-guide.html">
+            <span class="tag">Artifacts</span>
+            <h3>Claude Artifacts: The Complete Guide</h3>
+            <p>Build interactive HTML, React, SVG, and diagrams in the preview pane — what you can make, how sharing and embedding work, the 2026 live-data update, and the limitations to know.</p>
+            <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
+          </a>
 
-        <a class="card" href="guides/claude-artifacts-complete-guide.html">
-          <span class="tag">AI &middot; Tools</span>
-          <h3>Claude Artifacts: The Complete Guide</h3>
-          <p>Build interactive HTML, React, SVG, and diagrams in the preview pane — what you can make, how sharing and embedding work, the 2026 live-data update, and the limitations to know.</p>
-          <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
-        </a>
-
-        <a class="card" href="guides/building-claude-skills.html">
-          <span class="tag">AI &middot; Claude</span>
-          <h3>Building Claude Skills: A Complete How-To</h3>
-          <p>Write your own skill — the folder structure, SKILL.md frontmatter and naming rules, progressive disclosure, a worked blog-writing example, install commands, and trigger testing.</p>
-          <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
-        </a>
-
-        <a class="card" href="guides/getting-started-claude-agent-sdk.html">
-          <span class="tag">AI &middot; Agents</span>
-          <h3>Getting Started with the Claude Agent SDK</h3>
-          <p>Install the SDK and build TrendSmith, a market-research CLI that searches, fetches, and saves reports through the gather–act–verify loop — with the cost caps to keep it cheap.</p>
-          <span class="read">Read the guide <span class="arrow">&rarr;</span></span>
-        </a>
-
-        <div class="card placeholder">
-          <h3>More guides coming&hellip;</h3>
+          <div class="card placeholder">
+            <h3>More guides coming&hellip;</h3>
+          </div>
         </div>
       </div>
     </section>
