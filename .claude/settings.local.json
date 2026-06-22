@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit -q -m 'Add guide: Loops — the skill behind AI that scales *)",
+      "Bash(git push *)"
+    ]
+  }
+}

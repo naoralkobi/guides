@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loops: The Quiet Skill Behind Every AI System That Scales — Guides</title>
+  <meta name="description" content="Loop engineering — designing when an AI system runs, how it verifies itself, and when it stops — is the durable skill behind every AI system that actually scales in 2026." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='9' fill='%230f7268'/></svg>" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><span class="dot"></span> Guides</a>
+      <a class="nav-link" href="../index.html">All guides</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="guide-head">
+      <a class="back" href="../index.html">&larr; Back to all guides</a>
+      <h1>Loops: The Quiet Skill Behind Every AI System That Scales</h1>
+      <p class="guide-meta">AI &middot; Architecture &middot; The four-component framework</p>
+    </div>
+
+    <article>
+      <h2>The Big Idea</h2>
+      <p class="lede">Most people building with AI still measure progress by how good their prompts are. That's the wrong unit. The systems that actually scale — running unattended for hours, coordinating agents, fixing their own mistakes before a human sees them — aren't built on better prompts. They're built on <strong>loops</strong>.</p>
+
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">Key insight</span>
+        <p>A mediocre model in a well-designed loop with proper verification consistently outperforms a frontier model running as a single unsupervised pass. The model commoditizes fast; the architecture around it doesn't. Loop engineering is the durable skill almost nobody is teaching.</p>
+      </div>
+
+      <h2>Why Loops, Not Models</h2>
+      <p>Every few weeks there's a new model, a new benchmark, a new "this changes everything." The conversation defaults to <em>is this model smarter than the last one?</em> — and that question matters less than people think. The model is commoditizing on a near-monthly cadence:</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Signal</th><th>What it shows</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>GLM 5.2 vs Claude Opus 4.8</td><td>Within roughly 1% on the hardest agentic coding benchmarks.</td></tr>
+            <tr><td>Kimi K2.6 swarms</td><td>300-agent runs with a verification layer that catches errors humans would never spot manually.</td></tr>
+            <tr><td>Open-weight models</td><td>Closing the gap to closed frontier systems on a near-monthly cadence.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Boris Cherny, creator of Claude Code, describes shifting from prompting Claude directly to building systems that prompt <em>themselves</em> — loops that run on a schedule, verify their own output, and only surface to a human when something needs human judgment. Karpathy notes that ~90% of an AI's mistakes trace back to missing context rather than model weakness — a problem loops solve structurally by accumulating and re-injecting context every cycle instead of starting from zero.</p>
+
+      <h2>What a Loop Actually Is</h2>
+      <p>Strip away the jargon and a loop has exactly four components. Most failed automation is missing one of them entirely.</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Component</th><th>Question it answers</th><th>Skip it and you get&hellip;</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b>Trigger</b></td><td>When does this run?</td><td>—</td></tr>
+            <tr><td><b>Process</b></td><td>What does it do each cycle?</td><td>—</td></tr>
+            <tr><td><b>Verification</b></td><td>Does the output meet a standard?</td><td>A timer that runs every 5 minutes but compounds nothing.</td></tr>
+            <tr><td><b>Stop condition</b></td><td>When is it done — or stuck?</td><td>An agent that retries forever isn't persistent, it's stuck.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>The Four Components</h2>
+
+      <h3><span class="step-num">1</span>The Trigger — when does this run</h3>
+      <p>Three patterns, in increasing sophistication:</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Pattern</th><th>Fires</th><th>Use when</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Fixed interval</td><td>On a schedule regardless of state (every 5 min; nightly at 11pm).</td><td>State changes continuously and you want regular checkpoints.</td></tr>
+            <tr><td>Event-driven</td><td>In response to something specific (new file, webhook, Slack message).</td><td>Work only needs to happen in reaction to an event.</td></tr>
+            <tr><td>Dynamic interval</td><td>The agent itself decides how long to wait next, based on what it found.</td><td>Almost always — and it's the most underused.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Boris Cherny's documented <code>/loop</code> pattern — a dynamic prompt that lets Claude pick its own interval between one minute and one hour — is a direct implementation of the dynamic pattern. The system learns its own cadence instead of a human guessing a fixed number that's either too aggressive (noise, wasted tokens) or too conservative (missing the useful window).</p>
+
+      <h3><span class="step-num">2</span>The Process — what actually happens</h3>
+      <p>This is where people spend 90% of their effort and where loops need the <em>least</em> novel thinking — it's just standard prompt and tool design inside a repeatable wrapper. The one discipline that matters: <strong>scope</strong>.</p>
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">Insight</span>
+        <p>This is the real argument for multi-agent over single mega-prompts — not that more agents are better, but that narrow scope makes verification <em>tractable</em>. A Researcher checked on "is every claim sourced?" and a Builder checked on "does output match the spec?" each have an unambiguous standard. Collapse them into one agent and verification becomes a fuzzy judgment call.</p>
+      </div>
+
+      <h3><span class="step-num">3</span>The Verification Step — the part almost everyone skips</h3>
+      <p>Verification means checking the loop's output against an explicit standard <em>using a method that can't be gamed by the same process that produced the output</em>. The naive failure is self-report: the agent that fabricated a citation won't catch its own fabrication on review, because the same reasoning produces the same confident, wrong answer.</p>
+      <p>Patterns that actually work, because the verifier doesn't share the generator's failure modes:</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Pattern</th><th>How it separates</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Separate verifier agent (the <b>Judge</b>)</td><td>A different agent — ideally a different model, at minimum a separate context — whose only job is grading: pass/fail with specific evidence, never building or fixing.</td></tr>
+            <tr><td>Cross-reference against ground truth</td><td>Check specific claims mechanically: did the tests pass? Does the cited statistic appear in the source? Does output match the schema? The most reliable form when you can construct it.</td></tr>
+            <tr><td>Stronger model verifies weaker</td><td>The Kimi K2.6 + Opus 4.8 swarm: 300 fast agents generate in parallel, a stronger, slower model checks every output against its source before it reaches a human.</td></tr>
+            <tr><td>Explicit confidence flagging</td><td>The process step flags its own uncertainty ("I'm not sure about this part"), giving the verifier a head start instead of grading from zero.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn">
+        <span class="ico">&#9888;&#65039;</span>
+        <span class="label">The hard rule</span>
+        <p>Never let a loop declare success based purely on the same component that produced the work also saying it succeeded. An agent reporting "completed successfully" while quietly getting something wrong is one of the most damaging and hardest-to-catch failures in production AI — because it looks identical to real success until someone manually checks.</p>
+      </div>
+
+      <h3><span class="step-num">4</span>The Stop Condition — knowing when to quit</h3>
+      <p>A real stop condition has <strong>three</strong> states, not two:</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>State</th><th>What happens</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b>Success</b></td><td>Verification passed. The loop says so explicitly — citing what passed and why — not just silently stops.</td></tr>
+            <tr><td><b>Bounded retry</b></td><td>Verification failed, budget remains. Retry with specific correction feedback, not a fresh start — targeted fixes converge faster and introduce fewer new problems.</td></tr>
+            <tr><td><b>Escalation</b></td><td>Budget exhausted (cap at 3–4 cycles). Stop automatically and hand a human the full history: original task, every attempt, every verdict, and a specific recommendation for what to look at first.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Escalation is the state most homebuilt systems miss, and the most important. Four failed attempts at one narrow task is a useful signal — it usually means the task definition is ambiguous or unrealistic, not that a fifth attempt is needed. This is the entire difference between a system you can trust to run unattended and one you have to babysit.</p>
+
+      <h2>Why This Compounds: The Memory Layer</h2>
+      <p>Everything above is a single cycle. What makes loops <em>scale</em> rather than just repeat is memory across cycles. A loop without memory does the same quality of work on cycle 100 as cycle 1 — useful, but flat. A loop with memory gets measurably better, because each cycle's output (including failures and their corrections) feeds the next cycle's context.</p>
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">"Gets smarter every week" isn't marketing</span>
+        <p>A morning-brief loop run for 90 days has 90 days of history the day-one version didn't. The architecture didn't change — the accumulated memory did. It's the same mechanism behind the context-engineering numbers: a <strong>41% mistake rate with no persistent context document drops to 3% with a comprehensive one</strong>. The model didn't get smarter; the context did.</p>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Memory pattern</th><th>What it does</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Append-only execution logs</td><td>Every cycle writes what it did, found, and how it was judged. Future cycles read recent entries first. The foundation everything builds on.</td></tr>
+            <tr><td>Periodic consolidation</td><td>A separate, less-frequent loop distills 30–90 days of raw entries into a handful of named, evidence-backed patterns — so memory compounds instead of just growing too large to read.</td></tr>
+            <tr><td>Explicit belief tracking</td><td>Maintain a small set of falsifiable beliefs about the domain; each cycle checks whether new info confirms or challenges them, flagging when something no longer holds.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>The Anti-Patterns</h2>
+      <p>The failure modes are remarkably consistent across domains — and each maps directly to skipping one of the four components.</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Anti-pattern</th><th>What goes wrong</th><th>The fix</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Undefined-done</td><td>No explicit standard for "finished"; each cycle decides for itself and they never add up.</td><td>Write the definition of done first — specific enough that a stranger could grade it without questions.</td></tr>
+            <tr><td>Self-report</td><td>Trusting the component that did the work to also grade the work.</td><td>Structurally separate verification.</td></tr>
+            <tr><td>Unbounded retry</td><td>No cap, no escalation — runs forever or quietly gives up.</td><td>Cap retries; write the escalation path.</td></tr>
+            <tr><td>Amnesia</td><td>Every execution starts from zero, repeating already-corrected mistakes.</td><td>Add an append-only memory layer.</td></tr>
+            <tr><td>Over-eager trigger</td><td>Aggressive fixed interval generates repetitive nothing; humans learn to ignore it.</td><td>Move to a dynamic interval.</td></tr>
+            <tr><td>Handoff gap</td><td>Output passes between steps with no defined schema; the receiver guesses. Where compounding errors actually originate.</td><td>Define the schema between steps.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>A Worked Example: Competitor Monitoring</h2>
+      <p class="usecase"><b>Use case:</b> monitor a competitor's public content for strategically relevant changes. Every component above, applied to one real task.</p>
+      <div class="table-scroll">
+        <table>
+          <tbody>
+            <tr><td><b>Trigger</b></td><td>Twice weekly, Mon &amp; Thu at 7am — a fixed interval, because competitive monitoring benefits from regular checkpoints rather than a specific event that may have no obvious signal.</td></tr>
+            <tr><td><b>Process</b></td><td>Search the competitor's public content from the past 3–4 days. Compare against the previous 6 weeks of accumulated notes in memory. Identify meaningful shifts, not routine activity.</td></tr>
+            <tr><td><b>Verification</b></td><td>Before flagging anything: would this be newsworthy to someone who follows the space closely, and is there evidence of a genuine change in direction rather than a single noisy data point? A product update in aggressive marketing language fails; a sustained messaging shift across weeks passes.</td></tr>
+            <tr><td><b>Stop &amp; memory</b></td><td>Each cycle logs its findings — including "nothing significant this cycle." After six weeks, twelve entries exist, and a gradual positioning shift invisible in any single cycle becomes obvious when read together.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Closing the Gap</h2>
+      <p>The people pulling ahead aren't doing it through model access nobody else has — that gap is closing fast enough that betting your entire advantage on it is already a losing strategy. They're ahead because they treat loop architecture as a distinct skill from prompting, investing deliberate effort in trigger design, verification logic, and stop conditions.</p>
+      <div class="callout insight">
+        <span class="ico">&#128161;</span>
+        <span class="label">The durable edge</span>
+        <p>The skill gap is closing <em>slower</em> than the model gap — which is exactly why it's the more durable place to build. Anyone can switch to whichever model benchmarks best this month. Far fewer can look at a stalled multi-agent system and correctly diagnose that the problem isn't the model — it's a missing verification step or an undefined stop condition.</p>
+      </div>
+
+      <h2>Build One This Week</h2>
+      <div class="table-scroll">
+        <table>
+          <tbody>
+            <tr><td>1</td><td>Define the trigger explicitly.</td></tr>
+            <tr><td>2</td><td>Scope the process narrowly.</td></tr>
+            <tr><td>3</td><td>Build real verification that doesn't trust the thing being verified to verify itself.</td></tr>
+            <tr><td>4</td><td>Cap the retries and write the escalation path — before you ever run it for real.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="closer">That's the actual skill behind every AI system that scales in 2026. It was never the model.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="nav-link" href="../index.html">&larr; All guides</a>
+      <span>A personal collection of guides.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var code = btn.closest('.code-block').querySelector('code');
+        var text = code.innerText;
+        navigator.clipboard.writeText(text).then(function () {
+          var prev = btn.textContent;
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(function () {
+            btn.textContent = prev;
+            btn.classList.remove('copied');
+          }, 1600);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
